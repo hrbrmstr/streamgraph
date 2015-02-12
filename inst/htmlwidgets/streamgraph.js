@@ -1,7 +1,7 @@
-var dbg ;
-var dbg2 ;
-var dbg3 ;
-var dbg4 ;
+//var dbg ;
+//var dbg2 ;
+//var dbg3 ;
+//var dbg4 ;
 
 HTMLWidgets.widget({
 
@@ -24,7 +24,7 @@ HTMLWidgets.widget({
     while (el.firstChild)
     el.removeChild(el.firstChild);
 
-    dbg = params;
+    //dbg = params;
 
     var format = d3.time.format("%Y-%m-%d");
 
@@ -36,7 +36,7 @@ HTMLWidgets.widget({
       d.value = +d.value;
     });
 
-    dbg2 = data
+    //dbg2 = data
 
     // assign colors
 
@@ -69,6 +69,7 @@ HTMLWidgets.widget({
 
     var yAxis = d3.svg.axis().scale(y)
       .ticks(params.y_tick_count)
+      .tickFormat(d3.format(params.y_tick_format))
       .orient("left");
 
     // all the magic is here
@@ -128,10 +129,18 @@ HTMLWidgets.widget({
 
       .on("mousemove", function(dd, i) {
 
+        function iskey(key) {
+          return(function(element) {
+            return(element.key==key)
+          })
+        }
+
+        var subset = data.filter(iskey(dd.key));
+
         var x0 = x.invert(d3.mouse(this)[0]),
-            i = bisectDate(data, x0, 1),
-            d0 = data[i - 1],
-            d1 = data[i],
+            i = bisectDate(subset, x0, 1),
+            d0 = subset[i - 1],
+            d1 = subset[i],
             d = x0 - d0.date > d1.date - x0 ? d1 : d0;
 
         d3.select(this)

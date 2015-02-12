@@ -4,13 +4,15 @@
 \alias{sg_axis_y}
 \title{Modify streamgraph y axis formatting}
 \usage{
-sg_axis_y(sg, tick_count = 5)
+sg_axis_y(sg, tick_count = 5, tick_format = ",g")
 }
 \arguments{
 \item{sg}{streamgraph object}
 
 \item{tick_count}{number of y axis ticks, not tick interval (defaults to \code{5});
 make this \code{0} if you want to hide the y axis}
+
+\item{tick_format}{d3 \href{https://github.com/mbostock/d3/wiki/Formatting#d3_format}{tick format} string}
 }
 \value{
 streamgraph object

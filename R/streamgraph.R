@@ -56,7 +56,8 @@ streamgraph <- function(data,
     x_tick_interval=1,
     x_tick_units="month",
     x_tick_format="%b",
-    y_tick_count=5
+    y_tick_count=5,
+    y_tick_format=",g"
   )
 
   htmlwidgets::createWidget(
@@ -114,6 +115,7 @@ sg_axis_x <- function(sg,
 #' @param sg streamgraph object
 #' @param tick_count number of y axis ticks, not tick interval (defaults to \code{5});
 #'        make this \code{0} if you want to hide the y axis
+#' @param tick_format d3 \href{https://github.com/mbostock/d3/wiki/Formatting#d3_format}{tick format} string
 #' @return streamgraph object
 #' @export
 #' @examples \dontrun{
@@ -131,9 +133,10 @@ sg_axis_x <- function(sg,
 #'   sg_axis_x(20, "year", "%Y") %>%
 #'   sg_axis_y(0)
 #' }#' @export
-sg_axis_y <- function(sg, tick_count=5) {
+sg_axis_y <- function(sg, tick_count=5, tick_format=",g") {
 
   sg$x$y_tick_count <- tick_count
+  sg$x$y_tick_format <- tick_format
 
   sg
 

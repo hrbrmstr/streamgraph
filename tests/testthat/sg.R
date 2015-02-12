@@ -34,4 +34,5 @@ ggplot2::movies %>%
 
 streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_axis_x(20, "year", "%Y") %>%
+  sg_axis_y(tick_format="b") %>%
   sg_colors("Spectral")
