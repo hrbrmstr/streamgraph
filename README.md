@@ -1,6 +1,6 @@
 streamgraph is an htmlwidget for making streamgraphs. Planned support for `xts` objects.
 
-[Sample Rmd](http://rpubs.com/hrbrmstr/streamgraph_01))
+[Sample Rmd](http://rpubs.com/hrbrmstr/streamgraph_01)
 
 A streamgraph (or "stream graph") is a type of stacked area graph which is displaced around a central axis, resulting in a flowing, organic shape. Streamgraphs were developed by Lee Byron and popularized by their use in a February 2008 New York Times article on movie box office revenues. ([Wikipedia](http://en.wikipedia.org/wiki/Streamgraph))
 
@@ -60,7 +60,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Thu Feb 12 10:07:23 2015"
+    ## [1] "Thu Feb 12 10:09:28 2015"
 
 ``` r
 test_dir("tests/")
