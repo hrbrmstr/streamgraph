@@ -75,7 +75,7 @@ HTMLWidgets.widget({
     // all the magic is here
 
     var stack = d3.layout.stack()
-      .offset("silhouette")
+      .offset(params.offset)
       .values(function(d) { return d.values; })
       .x(function(d) { return d.date; })
       .y(function(d) { return d.value; });
@@ -84,7 +84,7 @@ HTMLWidgets.widget({
       .key(function(d) { return d.key; });
 
     var area = d3.svg.area()
-      .interpolate("cardinal")
+      .interpolate(params.interpolate)
       .x(function(d) { return x(d.date); })
       .y0(function(d) { return y(d.y0); })
       .y1(function(d) { return y(d.y0 + d.y); });

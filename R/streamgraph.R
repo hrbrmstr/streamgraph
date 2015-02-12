@@ -15,6 +15,13 @@
 #' @param date name of the date column (defaults to \code{date})
 #' @param width Width in pixels (optional, defaults to automatic sizing)
 #' @param height Height in pixels (optional, defaults to automatic sizing)
+#' @param offset see d3's \href{https://github.com/mbostock/d3/wiki/Stack-Layout#offset}{offset layout} for more details.
+#'        The default is probably fine for most uses but can be one of \code{silhouette} (default),
+#'        \code{wiggle}, \code{expand} or \code{zero}
+#' @param interpolate see d3's \href{https://github.com/mbostock/d3/wiki/SVG-Shapes#area_interpolate}{area interpolation} for more details.
+#'        The default is probably fine fore most uses, but can be one of \code{cardinal} (default),
+#'        \code{linear}, \code{step}, \code{step-before}, \code{step-after}, \code{basis}, \code{basis-open},
+#'        \code{cardinal-open}, \code{monotone}
 #' @param interactive set to \code{FALSE} if you do not want an interactive streamgraph
 #' @import htmlwidgets htmltools
 #' @return streamgraph object
@@ -37,7 +44,21 @@ streamgraph <- function(data,
                         value="value",
                         date="date",
                         width=NULL, height=NULL,
+                        offset="silhouette",
+                        interpolate="cardinal",
                         interactive=TRUE) {
+
+  if (!(offset %in% c("silhouette", "wiggle", "expand", "zero"))) {
+    warning("'offset' does not have a valid value, defaulting to 'silhouette'")
+    offset <- "silhouette"
+  }
+
+  if (!(interpolate %in% c("cardinal", "linear", "step", "step-before",
+                           "step-after", "basis", "basis-open",
+                           "cardinal-open", "monotone"))) {
+    warning("'interpolate' does not have a valid value, defaulting to 'cardinal'")
+    interpolate <- "cardinal"
+  }
 
   data <- data.frame(data)
   data <- data[,c(key, value, date)]
@@ -49,7 +70,9 @@ streamgraph <- function(data,
 
   params = list(
     data=data,
+    offset=offset,
     interactive=interactive,
+    interpolate=interpolate,
     palette="Blues",
     text="black",
     tooltip="black",

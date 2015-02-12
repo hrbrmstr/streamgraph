@@ -5,7 +5,8 @@
 \title{Create a new streamgraph}
 \usage{
 streamgraph(data, key = "key", value = "value", date = "date",
-  width = NULL, height = NULL, interactive = TRUE)
+  width = NULL, height = NULL, offset = "silhouette",
+  interpolate = "cardinal", interactive = TRUE)
 }
 \arguments{
 \item{data}{data frame}
@@ -19,6 +20,15 @@ streamgraph(data, key = "key", value = "value", date = "date",
 \item{width}{Width in pixels (optional, defaults to automatic sizing)}
 
 \item{height}{Height in pixels (optional, defaults to automatic sizing)}
+
+\item{offset}{see d3's \href{https://github.com/mbostock/d3/wiki/Stack-Layout#offset}{offset layout} for more details.
+The default is probably fine for most uses but can be one of \code{silhouette} (default),
+\code{wiggle}, \code{expand} or \code{zero}}
+
+\item{interpolate}{see d3's \href{https://github.com/mbostock/d3/wiki/SVG-Shapes#area_interpolate}{area interpolation} for more details.
+The default is probably fine fore most uses, but can be one of \code{cardinal} (default),
+\code{linear}, \code{step}, \code{step-before}, \code{step-after}, \code{basis}, \code{basis-open},
+\code{cardinal-open}, \code{monotone}}
 
 \item{interactive}{set to \code{FALSE} if you do not want an interactive streamgraph}
 }

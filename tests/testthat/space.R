@@ -28,3 +28,9 @@ sg_dat %>%
   sg_axis_x(1, "year", "%Y") %>%
   sg_colors("PuOr")
 
+dat <- read.csv("http://asbcllc.com/blog/2015/february/cre_stream_graph_test/data/cre_transaction-data.csv")
+
+dat %>%
+  streamgraph("asset_class", "volume_billions", "year", interpolate="cardinal") %>%
+  sg_axis_x(1, "year", "%Y") %>%
+  sg_colors("PuOr")

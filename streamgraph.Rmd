@@ -1,9 +1,11 @@
 ---
-title: "streamgraph 0.2"
+title: "streamgraph 0.3"
 author: '@hrbrmstr'
 date: "February 12, 2015"
 output: html_document
 ---
+
+[GitHub repo](http://github.com/hrbrmstr/streamgraph)
 
 ```{r fig.width=10}
 suppressPackageStartupMessages(library(streamgraph))
@@ -27,4 +29,36 @@ data <- read.csv("http://bl.ocks.org/WillTurman/raw/4631136/data.csv", stringsAs
 data$date <- as.Date(data$date, format="%m/%d/%y")
 
 streamgraph(data, interactive=TRUE) %>% sg_colors("Reds")
+```
+
+```{r fig.width=10}
+dat <- read.csv("http://asbcllc.com/blog/2015/february/cre_stream_graph_test/data/cre_transaction-data.csv")
+
+dat %>%
+  streamgraph("asset_class", "volume_billions", "year", interpolate="cardinal") %>%
+  sg_axis_x(1, "year", "%Y") %>%
+  sg_colors("PuOr")
+```
+
+```{r fig.width=10}
+dat %>%
+  streamgraph("asset_class", "volume_billions", "year", offset="silhouette", interpolate="step") %>%
+  sg_axis_x(1, "year", "%Y") %>%
+  sg_colors("PuOr")
+```
+
+```{r fig.width=10}
+dat %>%
+  streamgraph("asset_class", "volume_billions", "year", offset="zero", interpolate="cardinal") %>%
+  sg_axis_x(1, "year", "%Y") %>%
+  sg_colors("PuOr")
+```
+
+Now, who let that stacked bar chart get in here `;-)`
+
+```{r fig.width=10}
+dat %>%
+  streamgraph("asset_class", "volume_billions", "year", offset="zero", interpolate="step") %>%
+  sg_axis_x(1, "year", "%Y") %>%
+  sg_colors("PuOr")
 ```
