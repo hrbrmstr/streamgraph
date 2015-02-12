@@ -36,7 +36,7 @@ ggplot2::movies %>%
   select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
   tidyr::gather(genre, value, -year) %>%
   group_by(year, genre) %>%
-  tally(wt=vale) %>%
+  tally(wt=value) %>%
   ungroup %>%
   mutate(year=as.Date(sprintf("%d-01-01", year))) -> dat
 
@@ -60,7 +60,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Thu Feb 12 10:09:28 2015"
+    ## [1] "Thu Feb 12 10:10:20 2015"
 
 ``` r
 test_dir("tests/")
