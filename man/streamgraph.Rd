@@ -5,7 +5,7 @@
 \title{Create a new streamgraph}
 \usage{
 streamgraph(data, key = "key", value = "value", date = "date",
-  width = NULL, height = NULL, interactive = FALSE)
+  width = NULL, height = NULL, interactive = TRUE)
 }
 \arguments{
 \item{data}{data frame}
@@ -20,7 +20,7 @@ streamgraph(data, key = "key", value = "value", date = "date",
 
 \item{height}{Height in pixels (optional, defaults to automatic sizing)}
 
-\item{interactive}{set to \code{TRUE} if you want an interactive streamgraph}
+\item{interactive}{set to \code{FALSE} if you do not want an interactive streamgraph}
 }
 \value{
 streamgraph object
@@ -32,8 +32,8 @@ category (by default, it looks for \code{key}) and its associated
 \code{date}  and \code{value}. You can supply the names for those
 columns if they aren't named as such in your data.\cr
 \cr
-By default, interactivity is off, but you can enable that by setting
-the \code{interactve} parameter to \code{TRUE}.
+By default, interactivity is on, but you can disable that by setting
+the \code{interactve} parameter to \code{FALSE}.
 }
 \examples{
 \dontrun{

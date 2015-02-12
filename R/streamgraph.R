@@ -6,8 +6,8 @@
 #' \code{date}  and \code{value}. You can supply the names for those
 #' columns if they aren't named as such in your data.\cr
 #' \cr
-#' By default, interactivity is off, but you can enable that by setting
-#' the \code{interactve} parameter to \code{TRUE}.
+#' By default, interactivity is on, but you can disable that by setting
+#' the \code{interactve} parameter to \code{FALSE}.
 #'
 #' @param data data frame
 #' @param key name of the category column (defaults to \code{key})
@@ -15,7 +15,7 @@
 #' @param date name of the date column (defaults to \code{date})
 #' @param width Width in pixels (optional, defaults to automatic sizing)
 #' @param height Height in pixels (optional, defaults to automatic sizing)
-#' @param interactive set to \code{TRUE} if you want an interactive streamgraph
+#' @param interactive set to \code{FALSE} if you do not want an interactive streamgraph
 #' @import htmlwidgets htmltools
 #' @return streamgraph object
 #' @export
@@ -37,7 +37,7 @@ streamgraph <- function(data,
                         value="value",
                         date="date",
                         width=NULL, height=NULL,
-                        interactive=FALSE) {
+                        interactive=TRUE) {
 
   data <- data.frame(data)
   data <- data[,c(key, value, date)]

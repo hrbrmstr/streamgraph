@@ -1,19 +1,19 @@
 ---
-title: "streamgraph 0.1"
+title: "streamgraph 0.2"
 author: '@hrbrmstr'
-date: "February 11, 2015"
+date: "February 12, 2015"
 output: html_document
 ---
 
-```{r}
-library(streamgraph)
-library(dplyr)
+```{r fig.width=10}
+suppressPackageStartupMessages(library(streamgraph))
+suppressPackageStartupMessages(library(dplyr))
 
 ggplot2::movies %>%
   select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
   tidyr::gather(genre, value, -year) %>%
   group_by(year, genre) %>%
-  tally() %>%
+  tally(wt=value) %>%
   ungroup %>%
   mutate(year=as.Date(sprintf("%d-01-01", year))) -> dat
 
@@ -22,9 +22,9 @@ streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_colors("PuOr")
 ```
 
-```{r}
+```{r fig.width=10}
 data <- read.csv("http://bl.ocks.org/WillTurman/raw/4631136/data.csv", stringsAsFactors=FALSE)
 data$date <- as.Date(data$date, format="%m/%d/%y")
 
-streamgraph(data, interactive=FALSE) %>% sg_colors("Reds")
+streamgraph(data, interactive=TRUE) %>% sg_colors("Reds")
 ```
