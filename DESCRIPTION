@@ -1,0 +1,20 @@
+Package: streamgraph
+Type: Package
+Title: streamgraph title goes here
+Version: 0.1
+Date: 2015-02-11
+Author: Bob Rudis (@hrbrmstr)
+Maintainer: Bob Rudis <bob@rudis.net>
+Description: streamgraph description goes here
+URL: http://github.com/hrbrmstr/streamgraph
+BugReports: https://github.com/hrbrmstr/streamgraph/issues
+License: MIT + file LICENSE
+Suggests:
+    testthat
+Depends:
+    R (>= 3.0.0),
+    htmlwidgets,
+    htmltools
+Imports:
+    magrittr,
+    xts

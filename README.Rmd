@@ -1,0 +1,66 @@
+---
+title: "README"
+author: "Bob Rudis"
+date: February 11, 2015
+output:
+  md_document:
+    variant: markdown_github
+---
+
+streamgraph is an htmlwidget for making streamgraphs. Planned support for `xts` objects and also fixing the tooltip display (doesn't work with the [sample Rmd](http://rpubs.com/hrbrmstr/streamgraph_01))
+
+The following functions are implemented:
+- `sg_axis_x`	Modify streamgraph x axis formatting
+- `sg_axis_y`	Modify streamgraph y axis formatting
+- `sg_colors`	Modify streamgraph colors
+- `streamgraph`	Create a new streamgraph
+
+### News
+
+- Version 0.1 released
+
+### Installation
+
+```{r eval=FALSE}
+devtools::install_github("hrbrmstr/streamgraph")
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+options(width=120)
+```
+
+### Usage
+
+```{r eval=FALSE}
+library(streamgraph)
+
+# current verison
+packageVersion("streamgraph")
+
+library(dplyr)
+
+ggplot2::movies %>%
+  select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
+  tidyr::gather(genre, value, -year) %>%
+  group_by(year, genre) %>%
+  tally() %>%
+  ungroup %>%
+  mutate(year=as.Date(sprintf("%d-01-01", year))) -> dat
+
+streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
+  sg_axis_x(20, "year", "%Y") %>%
+  sg_colors("PuOr")
+
+```
+
+### Test Results
+
+```{r}
+library(streamgraph)
+library(testthat)
+
+date()
+
+test_dir("tests/")
+```
+
