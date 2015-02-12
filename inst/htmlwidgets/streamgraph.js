@@ -26,6 +26,8 @@ HTMLWidgets.widget({
 
     dbg = params;
 
+    var format = d3.time.format("%Y-%m-%d");
+
     // reformat the data
     data = HTMLWidgets.dataframeToD3(params.data) ;
 
@@ -40,7 +42,6 @@ HTMLWidgets.widget({
 
     var colorrange = [];
     var tooltip ;
-    var format = d3.time.format("%Y-%m-%d");
 
     var ncols = d3.map(data, function(d) { return(d.key) }).keys().length;
     if (ncols > 9) ncols = 9
