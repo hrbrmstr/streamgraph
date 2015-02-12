@@ -29,7 +29,7 @@ HTMLWidgets.widget({
     var format = d3.time.format("%Y-%m-%d");
 
     // reformat the data
-    data = HTMLWidgets.dataframeToD3(params.data) ;
+    var data = HTMLWidgets.dataframeToD3(params.data) ;
 
     data.forEach(function(d) {
       d.date = format.parse(d.date);

@@ -26,7 +26,7 @@
 #' select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
 #'   tidyr::gather(genre, value, -year) %>%
 #'   group_by(year, genre) %>%
-#'   tally() %>%
+#'   tally(wt=value) %>%
 #'   ungroup %>%
 #'   mutate(year=as.Date(sprintf("%d-01-01", year))) -> dat
 #'
@@ -87,7 +87,7 @@ streamgraph <- function(data,
 #' select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
 #'   tidyr::gather(genre, value, -year) %>%
 #'   group_by(year, genre) %>%
-#'   tally() %>%
+#'   tally(wt=value) %>%
 #'   ungroup %>%
 #'   mutate(year=as.Date(sprintf("%d-01-01", year))) -> dat
 #'
@@ -123,7 +123,7 @@ sg_axis_x <- function(sg,
 #' select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
 #'   tidyr::gather(genre, value, -year) %>%
 #'   group_by(year, genre) %>%
-#'   tally() %>%
+#'   tally(wt=value) %>%
 #'   ungroup %>%
 #'   mutate(year=as.Date(sprintf("%d-01-01", year))) -> dat
 #'
@@ -156,7 +156,7 @@ sg_axis_y <- function(sg, tick_count=5) {
 #' select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
 #'   tidyr::gather(genre, value, -year) %>%
 #'   group_by(year, genre) %>%
-#'   tally() %>%
+#'   tally(wt=value) %>%
 #'   ungroup %>%
 #'   mutate(year=as.Date(sprintf("%d-01-01", year))) -> dat
 #'

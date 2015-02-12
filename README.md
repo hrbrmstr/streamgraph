@@ -15,6 +15,7 @@ The following functions are implemented:
 
 -   Version `0.1` released
 -   Version `0.2` released - working SVG tooltips; general code cleanup
+-   Version `0.2.1` released - ok, working tool tips for realz now
 
 ### Installation
 
@@ -60,7 +61,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Thu Feb 12 10:10:20 2015"
+    ## [1] "Thu Feb 12 13:59:09 2015"
 
 ``` r
 test_dir("tests/")

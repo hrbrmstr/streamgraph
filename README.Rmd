@@ -28,6 +28,7 @@ The following functions are implemented:
 
 - Version `0.1` released
 - Version `0.2` released - working SVG tooltips; general code cleanup
+- Version `0.2.1` released - ok, working tool tips for realz now
 
 ### Installation
 
