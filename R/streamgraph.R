@@ -74,7 +74,6 @@ streamgraph <- function(data,
   colnames(data) <- c("key", "value", "date")
 
   if (class(data$date) %in% c("numeric", "character", "integer")) {
-    message("shld be a year")
     if (all(nchar(as.character(data$date)) == 4)) {
       data %>%
         mutate(date=sprintf("%04d-01-01", as.numeric(date))) -> data
