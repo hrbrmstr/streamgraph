@@ -4,17 +4,18 @@
 \alias{sg_axis_x}
 \title{Modify streamgraph x axis formatting}
 \usage{
-sg_axis_x(sg, tick_interval = 1, tick_units = "month",
-  tick_format = "\%b")
+sg_axis_x(sg, tick_interval = NULL, tick_units = NULL, tick_format = NULL)
 }
 \arguments{
 \item{sg}{streamgraph object}
 
-\item{tick_interval}{interval between ticks, not tick count (defaults to \code{1})}
+\item{tick_interval}{interval between ticks, not tick count (defaults to \code{10} if source data is in years, otherwise \code{1})}
 
 \item{tick_units}{unit the ticks are in; d3 time scale unit specifier (defaults to \code{month})}
 
 \item{tick_format}{how to show the labels (subset of \code{strftime} formatters) (defaults to \code{\%b})}
+
+\item{show}{show vertical gridlines? (defaults to \code{FALSE})}
 }
 \value{
 streamgraph object

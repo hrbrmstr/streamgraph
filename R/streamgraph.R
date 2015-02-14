@@ -73,17 +73,28 @@ streamgraph <- function(data,
   data <- data[,c(key, value, date)]
   colnames(data) <- c("key", "value", "date")
 
+  xtu <- "month"
+  xtf <- "%b"
+  xti <- 1
+
   if (class(data$date) %in% c("numeric", "character", "integer")) {
     if (all(nchar(as.character(data$date)) == 4)) {
       data %>%
         mutate(date=sprintf("%04d-01-01", as.numeric(date))) -> data
+      xtu <- "year"
+      xtf <- "%Y"
+      xti <- 10
     }
   }
+
+  # needs all combos, so we do the equiv of expand.grid, but w/dplyr & tidyr
 
   data %>%
     left_join(tidyr::expand(., key, date), ., by=c("key", "date")) %>%
     mutate(value=ifelse(is.na(value), 0, value)) %>%
     select(key, value, date) -> data
+
+  # date format
 
   data %>%
     mutate(date=format(as.Date(date), "%Y-%m-%d")) %>%
@@ -94,12 +105,12 @@ streamgraph <- function(data,
     offset=offset,
     interactive=interactive,
     interpolate=interpolate,
-    palette="Blues",
+    palette="Spectral",
     text="black",
     tooltip="black",
-    x_tick_interval=1,
-    x_tick_units="month",
-    x_tick_format="%b",
+    x_tick_interval=xti,
+    x_tick_units=xtu,
+    x_tick_format=xtf,
     y_tick_count=5,
     y_tick_format=",g",
     top=top,
@@ -124,9 +135,10 @@ streamgraph <- function(data,
 #' streamgraph x axis.
 #'
 #' @param sg streamgraph object
-#' @param tick_interval interval between ticks, not tick count (defaults to \code{1})
+#' @param tick_interval interval between ticks, not tick count (defaults to \code{10} if source data is in years, otherwise \code{1})
 #' @param tick_units unit the ticks are in; d3 time scale unit specifier (defaults to \code{month})
 #' @param tick_format how to show the labels (subset of \code{strftime} formatters) (defaults to \code{\%b})
+#' @param show show vertical gridlines? (defaults to \code{FALSE})
 #' @return streamgraph object
 #' @export
 #' @examples \dontrun{
@@ -144,13 +156,13 @@ streamgraph <- function(data,
 #'   sg_axis_x(20, "year", "%Y")
 #' }
 sg_axis_x <- function(sg,
-                      tick_interval=1,
-                      tick_units="month",
-                      tick_format="%b") {
+                      tick_interval=NULL,
+                      tick_units=NULL,
+                      tick_format=NULL) {
 
-  sg$x$x_tick_interval <- tick_interval
-  sg$x$x_tick_units <- tick_units
-  sg$x$x_tick_format <- tick_format
+  if (!is.null(tick_interval))sg$x$x_tick_interval <- tick_interval
+  if (!is.null(tick_units)) sg$x$x_tick_units <- tick_units
+  if (!is.null(tick_format)) sg$x$x_tick_format <- tick_format
 
   sg
 
@@ -162,7 +174,7 @@ sg_axis_x <- function(sg,
 #'
 #' @param sg streamgraph object
 #' @param tick_count number of y axis ticks, not tick interval (defaults to \code{5});
-#'        make this \code{0} if you want to hide the y axis
+#'        make this \code{0} if you want to hide the y axis labels
 #' @param tick_format d3 \href{https://github.com/mbostock/d3/wiki/Formatting#d3_format}{tick format} string
 #' @return streamgraph object
 #' @export
@@ -195,9 +207,7 @@ sg_axis_y <- function(sg, tick_count=5, tick_format=",g") {
 #' Change the ColorBrewer palette being used
 #'
 #' @param sg streamgraph object
-#' @param palette ColorBrewer pallete atomic character value (defaults to \code{Blues})
-#' @param text text color CURRENTLY NOT IMPLEMENTED
-#' @param tooltip color CURRENTLY NOT IMPLEMENTED
+#' @param palette ColorBrewer pallete atomic character value (defaults to \code{Spectral})
 #' @return streamgraph object
 #' @export
 #' @examples \dontrun{
@@ -214,11 +224,11 @@ sg_axis_y <- function(sg, tick_count=5, tick_format=",g") {
 #' streamgraph(dat, "genre", "n", "year") %>%
 #'   sg_colors("PuOr")
 #' }
-sg_colors <- function(sg, palette="Blues", text="black", tooltip="black") {
+sg_colors <- function(sg, palette="Spectral") {
 
   sg$x$palette <- palette
-  sg$x$text <- text
-  sg$tooltip <- tooltip
+  sg$x$text <- "black"
+  sg$tooltip <- "black"
 
   sg
 

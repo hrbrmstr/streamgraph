@@ -62,9 +62,8 @@ HTMLWidgets.widget({
     var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
     var xAxis = d3.svg.axis().scale(x)
-    .orient("bottom")
-    .ticks(d3.time[params.x_tick_units],
-      params.x_tick_interval)
+      .orient("bottom")
+      .ticks(d3.time[params.x_tick_units], params.x_tick_interval)
       .tickFormat(d3.time.format(params.x_tick_format))
       .tickPadding(8);
 
@@ -162,12 +161,15 @@ HTMLWidgets.widget({
 
         d3.select(this)
         .classed("hover", false)
-        .attr("stroke-width", "0px")//,
+        .attr("stroke-width", "0px")
 
         tooltip.text("")
 
       })
     }
+
+//  stroke: #ffffff;
+//  stroke-width: 2px;
 
     svg.append("g")
     .attr("class", "x axis")
