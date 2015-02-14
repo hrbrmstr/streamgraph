@@ -14,15 +14,22 @@ Description: A streamgraph (or "stream graph") is a type of stacked area graph
 URL: http://github.com/hrbrmstr/streamgraph
 BugReports: https://github.com/hrbrmstr/streamgraph/issues
 License: MIT + file LICENSE
+<<<<<<< HEAD
 Suggests:
     testthat,
     knitr
 Depends:
+=======
+Suggests: 
+    testthat,
+    knitr
+Depends: 
+>>>>>>> c21b34b311ad563175566ac6c1a6f8c8678f0f5c
     R (>= 3.0.0),
     htmlwidgets,
     htmltools,
     tidyr
-Imports:
+Imports: 
     magrittr,
     xts
 VignetteBuilder: knitr

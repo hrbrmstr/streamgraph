@@ -159,6 +159,9 @@ HTMLWidgets.widget({
       })
     }
 
+//  stroke: #ffffff;
+//  stroke-width: 2px;
+
     svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
