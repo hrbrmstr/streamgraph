@@ -4,16 +4,12 @@
 \alias{sg_colors}
 \title{Modify streamgraph colors}
 \usage{
-sg_colors(sg, palette = "Blues", text = "black", tooltip = "black")
+sg_colors(sg, palette = "Spectral")
 }
 \arguments{
 \item{sg}{streamgraph object}
 
-\item{palette}{ColorBrewer pallete atomic character value (defaults to \code{Blues})}
-
-\item{text}{text color CURRENTLY NOT IMPLEMENTED}
-
-\item{tooltip}{color CURRENTLY NOT IMPLEMENTED}
+\item{palette}{ColorBrewer pallete atomic character value (defaults to \code{Spectral})}
 }
 \value{
 streamgraph object

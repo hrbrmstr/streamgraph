@@ -1,8 +1,3 @@
-//var dbg ;
-//var dbg2 ;
-//var dbg3 ;
-//var dbg4 ;
-
 HTMLWidgets.widget({
 
   name: 'streamgraph',
@@ -24,8 +19,6 @@ HTMLWidgets.widget({
     while (el.firstChild)
     el.removeChild(el.firstChild);
 
-    // dbg = params;
-
     var format = d3.time.format("%Y-%m-%d");
 
     // reformat the data
@@ -35,8 +28,6 @@ HTMLWidgets.widget({
       d.date = format.parse(d.date);
       d.value = +d.value;
     });
-
-    //  dbg2 = data
 
     // assign colors
 
@@ -62,9 +53,8 @@ HTMLWidgets.widget({
     var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
     var xAxis = d3.svg.axis().scale(x)
-    .orient("bottom")
-    .ticks(d3.time[params.x_tick_units],
-      params.x_tick_interval)
+      .orient("bottom")
+      .ticks(d3.time[params.x_tick_units], params.x_tick_interval)
       .tickFormat(d3.time.format(params.x_tick_format))
       .tickPadding(8);
 
@@ -162,7 +152,7 @@ HTMLWidgets.widget({
 
         d3.select(this)
         .classed("hover", false)
-        .attr("stroke-width", "0px")//,
+        .attr("stroke-width", "0px")
 
         tooltip.text("")
 

@@ -1,4 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.travis\.yml$
-^.*md$
+README\.md
+README\.Rmd
+streamgraph\.Rmd
+streamgraph\.html
+^.*\.html$

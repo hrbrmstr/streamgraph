@@ -9,13 +9,14 @@ Description: A streamgraph (or "stream graph") is a type of stacked area graph
              which is displaced around a central axis, resulting in a flowing,
              organic shape. Streamgraphs were developed by Lee Byron and popularized
              by their use in a February 2008 New York Times article on movie
-             box office revenues. (Wikipedia) The streamgraph package is based on
-             the htmlwidget package and uses d3 to render the visualizations.
+             box office revenues. [Wikipedia] The streamgraph package is based on
+             the htmlwidget package and uses D3.js to render the visualizations.
 URL: http://github.com/hrbrmstr/streamgraph
 BugReports: https://github.com/hrbrmstr/streamgraph/issues
 License: MIT + file LICENSE
 Suggests:
-    testthat
+    testthat,
+    knitr
 Depends:
     R (>= 3.0.0),
     htmlwidgets,
@@ -24,3 +25,4 @@ Depends:
 Imports:
     magrittr,
     xts
+VignetteBuilder: knitr

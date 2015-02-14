@@ -10,7 +10,7 @@ sg_axis_y(sg, tick_count = 5, tick_format = ",g")
 \item{sg}{streamgraph object}
 
 \item{tick_count}{number of y axis ticks, not tick interval (defaults to \code{5});
-make this \code{0} if you want to hide the y axis}
+make this \code{0} if you want to hide the y axis labels}
 
 \item{tick_format}{d3 \href{https://github.com/mbostock/d3/wiki/Formatting#d3_format}{tick format} string}
 }
