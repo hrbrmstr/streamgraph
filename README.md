@@ -1,6 +1,6 @@
 streamgraph is an htmlwidget for making streamgraphs. Planned support for `xts` objects.
 
-[Sample Rmd](http://rpubs.com/hrbrmstr/streamgraph_01)
+[Sample Rmd](http://rpubs.com/hrbrmstr/streamgraph_03)
 
 A streamgraph (or "stream graph") is a type of stacked area graph which is displaced around a central axis, resulting in a flowing, organic shape. Streamgraphs were developed by Lee Byron and popularized by their use in a February 2008 New York Times article on movie box office revenues. ([Wikipedia](http://en.wikipedia.org/wiki/Streamgraph))
 
@@ -18,6 +18,7 @@ The following functions are implemented:
 -   Version `0.2.1` released - ok, working tool tips for realz now
 -   Version `0.2.2` relased - rly rly rly fixed tooltips now, also assed ability to format y axis text
 -   Version `0.3` released - folks can have some fun with new `offset` and `interpolate` parameters to `streamgraph`
+-   Version `0.3.1` released - bug fix to fix error with `d3.stack`; `streamgraph` will now see if the date input is a year and automatically convert it to the necessary format (no need to use `as.Date`)
 
 ### Installation
 
@@ -40,8 +41,7 @@ ggplot2::movies %>%
   tidyr::gather(genre, value, -year) %>%
   group_by(year, genre) %>%
   tally(wt=value) %>%
-  ungroup %>%
-  mutate(year=as.Date(sprintf("%d-01-01", year))) -> dat
+  ungroup -> dat
 
 streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_axis_x(20, "year", "%Y") %>%
@@ -56,6 +56,7 @@ library(streamgraph)
 
     ## Loading required package: htmlwidgets
     ## Loading required package: htmltools
+    ## Loading required package: tidyr
 
 ``` r
 library(testthat)
@@ -63,7 +64,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Thu Feb 12 15:51:17 2015"
+    ## [1] "Sat Feb 14 11:12:27 2015"
 
 ``` r
 test_dir("tests/")

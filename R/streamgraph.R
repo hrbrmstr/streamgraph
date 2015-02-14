@@ -23,7 +23,12 @@
 #'        \code{linear}, \code{step}, \code{step-before}, \code{step-after}, \code{basis}, \code{basis-open},
 #'        \code{cardinal-open}, \code{monotone}
 #' @param interactive set to \code{FALSE} if you do not want an interactive streamgraph
+#' @param top top margin (default should be fine, this allows for fine-tuning plot space)
+#' @param right right margin (default should be fine, this allows for fine-tuning plot space)
+#' @param bottom bottom margin (default should be fine, this allows for fine-tuning plot space)
+#' @param left left margin (default should be fine, this allows for fine-tuning plot space)
 #' @import htmlwidgets htmltools
+#' @importFrom tidyr expand
 #' @return streamgraph object
 #' @export
 #' @examples \dontrun{
@@ -46,7 +51,11 @@ streamgraph <- function(data,
                         width=NULL, height=NULL,
                         offset="silhouette",
                         interpolate="cardinal",
-                        interactive=TRUE) {
+                        interactive=TRUE,
+                        top=20,
+                        right=40,
+                        bottom=30,
+                        left=50) {
 
   if (!(offset %in% c("silhouette", "wiggle", "expand", "zero"))) {
     warning("'offset' does not have a valid value, defaulting to 'silhouette'")
@@ -64,6 +73,19 @@ streamgraph <- function(data,
   data <- data[,c(key, value, date)]
   colnames(data) <- c("key", "value", "date")
 
+  if (class(data$date) %in% c("numeric", "character", "integer")) {
+    message("shld be a year")
+    if (all(nchar(as.character(data$date)) == 4)) {
+      data %>%
+        mutate(date=sprintf("%04d-01-01", as.numeric(date))) -> data
+    }
+  }
+
+  data %>%
+    left_join(tidyr::expand(., key, date), ., by=c("key", "date")) %>%
+    mutate(value=ifelse(is.na(value), 0, value)) %>%
+    select(key, value, date) -> data
+
   data %>%
     mutate(date=format(as.Date(date), "%Y-%m-%d")) %>%
     arrange(date) -> data
@@ -80,7 +102,11 @@ streamgraph <- function(data,
     x_tick_units="month",
     x_tick_format="%b",
     y_tick_count=5,
-    y_tick_format=",g"
+    y_tick_format=",g",
+    top=top,
+    right=right,
+    bottom=bottom,
+    left=left
   )
 
   htmlwidgets::createWidget(

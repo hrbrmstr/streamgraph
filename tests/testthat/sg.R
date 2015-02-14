@@ -14,8 +14,7 @@ ggplot2::movies %>%
   tidyr::gather(genre, value, -year) %>%
   group_by(year, genre) %>%
   tally(wt=value) %>%
-  ungroup %>%
-  mutate(year=as.Date(sprintf("%d-01-01", year))) -> dat
+  ungroup -> dat
 
 streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_axis_x(20, "year", "%Y") %>%
@@ -36,3 +35,26 @@ streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_axis_x(20, "year", "%Y") %>%
   sg_axis_y(tick_format="b") %>%
   sg_colors("Spectral")
+
+library(streamgraph)
+library(rvest)
+library(magrittr)
+library(dplyr)
+library(babynames)
+library(tidyr)
+
+babynames %>%
+  group_by(year, sex) %>%
+  top_n(10, n) -> dat1
+
+babynames %>%
+  filter(sex=="F",
+         name %in% dat1$name) -> dat
+
+streamgraph(dat, "name", "n", "year") %>%
+  sg_colors("Spectral") %>%
+  sg_axis_x(tick_units = "year", tick_interval = 10, tick_format = "%Y")
+
+
+babynames[babynames$name %in% dat1$name,]
+

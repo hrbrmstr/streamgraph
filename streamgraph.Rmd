@@ -1,7 +1,7 @@
 ---
-title: "streamgraph 0.3"
+title: "streamgraph 0.3.1"
 author: '@hrbrmstr'
-date: "February 12, 2015"
+date: "February 14, 2015"
 output: html_document
 ---
 
@@ -10,14 +10,14 @@ output: html_document
 ```{r fig.width=10}
 suppressPackageStartupMessages(library(streamgraph))
 suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(babynames))
 
 ggplot2::movies %>%
   select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
   tidyr::gather(genre, value, -year) %>%
   group_by(year, genre) %>%
   tally(wt=value) %>%
-  ungroup %>%
-  mutate(year=as.Date(sprintf("%d-01-01", year))) -> dat
+  ungroup -> dat
 
 streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_axis_x(20, "year", "%Y") %>%
@@ -61,4 +61,21 @@ dat %>%
   streamgraph("asset_class", "volume_billions", "year", offset="zero", interpolate="step") %>%
   sg_axis_x(1, "year", "%Y") %>%
   sg_colors("PuOr")
+```
+
+```{r fig.width=10}
+# get top 10 names for each year by sex
+babynames %>%
+  group_by(year, sex) %>%
+  top_n(10, n) -> dat1
+
+# just look at female names and get the data for
+# the top n by all years to see how they "flow"
+babynames %>%
+  filter(sex=="F", 
+         name %in% dat1$name) -> dat
+
+streamgraph(dat, "name", "n", "year") %>%
+  sg_colors("Spectral") %>%
+  sg_axis_x(tick_units = "year", tick_interval = 10, tick_format = "%Y")
 ```

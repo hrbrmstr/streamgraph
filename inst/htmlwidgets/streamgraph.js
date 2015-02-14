@@ -24,7 +24,7 @@ HTMLWidgets.widget({
     while (el.firstChild)
     el.removeChild(el.firstChild);
 
-    //dbg = params;
+    // dbg = params;
 
     var format = d3.time.format("%Y-%m-%d");
 
@@ -36,7 +36,7 @@ HTMLWidgets.widget({
       d.value = +d.value;
     });
 
-    //dbg2 = data
+    //  dbg2 = data
 
     // assign colors
 
@@ -51,7 +51,8 @@ HTMLWidgets.widget({
 
     // setup size, scales and axes
 
-    var margin = { top: 20, right: 40, bottom: 30, left: 40 };
+    var margin = { top: params.top, right: params.right,
+                   bottom: params.bottom, left: params.left };
     width = width - margin.left - margin.right;
     height = height - margin.top - margin.bottom;
 
