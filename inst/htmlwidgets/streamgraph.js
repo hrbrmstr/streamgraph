@@ -180,7 +180,7 @@ HTMLWidgets.widget({
 
       tooltip.text("");
 
-      if (selected_value == "——— Select ———") {
+      if (selected_value == "--- Select ---") {
 
         d3.selectAll("#" + el.id + " .layer")
         .transition()
@@ -220,7 +220,7 @@ HTMLWidgets.widget({
           .on('change', onselchange)
 
       var selopts = d3.set(data.map(function(d) { return(d.key) })).values()
-      selopts.unshift("——— Select ———")
+      selopts.unshift("--- Select ---")
 
       var options = d3.select("#" + el.id + "-select")
          .selectAll('option')
