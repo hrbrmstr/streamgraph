@@ -23,6 +23,9 @@
 #'        \code{linear}, \code{step}, \code{step-before}, \code{step-after}, \code{basis}, \code{basis-open},
 #'        \code{cardinal-open}, \code{monotone}
 #' @param interactive set to \code{FALSE} if you do not want an interactive streamgraph
+#' @param legend if this is \code{TRUE} and \code{interactive} is \code{TRUE} then a popup menu
+#'        will be available that lists ll the keys in the data set. Selecting a key will
+#'        perform the same action as hovering over the area with the mouse.
 #' @param top top margin (default should be fine, this allows for fine-tuning plot space)
 #' @param right right margin (default should be fine, this allows for fine-tuning plot space)
 #' @param bottom bottom margin (default should be fine, this allows for fine-tuning plot space)
@@ -52,6 +55,7 @@ streamgraph <- function(data,
                         offset="silhouette",
                         interpolate="cardinal",
                         interactive=TRUE,
+                        legend=FALSE,
                         top=20,
                         right=40,
                         bottom=30,
@@ -116,7 +120,8 @@ streamgraph <- function(data,
     top=top,
     right=right,
     bottom=bottom,
-    left=left
+    left=left,
+    legend=legend
   )
 
   htmlwidgets::createWidget(

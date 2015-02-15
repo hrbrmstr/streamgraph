@@ -16,11 +16,19 @@ ggplot2::movies %>%
   tally(wt=value) %>%
   ungroup -> dat
 
-streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
+streamgraph(dat, "genre", "n", "year", interactive=TRUE, legend=TRUE) %>%
   sg_axis_x(20, "year", "%Y") %>%
   sg_colors("Spectral")
 
 str(ggplot2::movies)
+
+dat <- read.csv("http://bl.ocks.org/mbostock/raw/1134768/crimea.csv")
+dat %>%
+  mutate(date=as.Date(sprintf("01/%s", dat$date), format="%d/%m/%Y")) %>%
+  tidyr::gather(deaths, count, -date) -> dat
+
+streamgraph(dat, "deaths", "count", offset="zero") %>%
+  sg_axis_x(tick_interval = 3, tick_format = "%b %y")
 
 
 ggplot2::movies %>%
@@ -51,7 +59,7 @@ babynames %>%
   filter(sex=="F",
          name %in% dat1$name) -> dat
 
-streamgraph(dat, "name", "n", "year") %>%
+streamgraph(dat, "name", "n", "year", legend=TRUE) %>%
   sg_colors("Spectral") %>%
   sg_axis_x(tick_units = "year", tick_interval = 10, tick_format = "%Y")
 

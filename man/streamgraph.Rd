@@ -6,8 +6,8 @@
 \usage{
 streamgraph(data, key = "key", value = "value", date = "date",
   width = NULL, height = NULL, offset = "silhouette",
-  interpolate = "cardinal", interactive = TRUE, top = 20, right = 40,
-  bottom = 30, left = 50)
+  interpolate = "cardinal", interactive = TRUE, legend = FALSE,
+  top = 20, right = 40, bottom = 30, left = 50)
 }
 \arguments{
 \item{data}{data frame}
@@ -32,6 +32,10 @@ The default is probably fine fore most uses, but can be one of \code{cardinal} (
 \code{cardinal-open}, \code{monotone}}
 
 \item{interactive}{set to \code{FALSE} if you do not want an interactive streamgraph}
+
+\item{legend}{if this is \code{TRUE} and \code{interactive} is \code{TRUE} then a popup menu
+will be available that lists ll the keys in the data set. Selecting a key will
+perform the same action as hovering over the area with the mouse.}
 
 \item{top}{top margin (default should be fine, this allows for fine-tuning plot space)}
 

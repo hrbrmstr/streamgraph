@@ -31,10 +31,13 @@ HTMLWidgets.widget({
       d.value = +d.value;
     });
 
+   dbg = data ;
+
     // assign colors
 
     var colorrange = [];
     var tooltip ;
+    var opacity = 0.33 ;
 
     var ncols = d3.map(data, function(d) { return(d.key) }).keys().length;
     if (ncols > 9) ncols = 9
@@ -51,7 +54,7 @@ HTMLWidgets.widget({
 
     var x = d3.time.scale().range([0, width]);
     var y = d3.scale.linear().range([height-10, 0]);
-    var z = d3.scale.ordinal().range(colorrange);
+    var z = d3.scale.ordinal().range(colorrange).domain(d3.set(data.map(function(d) { return(d.key) })).values());
     var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
     var xAxis = d3.svg.axis().scale(x)
@@ -59,8 +62,6 @@ HTMLWidgets.widget({
       .ticks(d3.time[params.x_tick_units], params.x_tick_interval)
       .tickFormat(d3.time.format(params.x_tick_format))
       .tickPadding(8);
-
-   dbg = xAxis ;
 
     var yAxis = d3.svg.axis().scale(y)
       .ticks(params.y_tick_count)
@@ -102,7 +103,7 @@ HTMLWidgets.widget({
     .enter().append("path")
     .attr("class", "layer")
     .attr("d", function(d) { return area(d.values); })
-    .style("fill", function(d, i) { return z(i); });
+    .style("fill", function(d, i) { return z(d.key); });
 
     // TODO legends in general but by defalt if not interactive
     // TODO add tracker vertical line
@@ -119,7 +120,7 @@ HTMLWidgets.widget({
         svg.selectAll(".layer").transition()
         .duration(150)
         .attr("opacity", function(d, j) {
-          return j != i ? 0.6 : 1;
+          return j != i ? opacity : 1;
         })})
 
       .on("mousemove", function(dd, i) {
@@ -163,9 +164,6 @@ HTMLWidgets.widget({
       })
     }
 
-//  stroke: #ffffff;
-//  stroke-width: 2px;
-
     svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
@@ -175,7 +173,59 @@ HTMLWidgets.widget({
     .attr("class", "y axis")
     .call(yAxis);
 
-  },
+    function onselchange() {
+
+      var selected_value = d3.event.target.value;
+
+      tooltip.text("")
+
+      if (selected_value == "——— Select ———") {
+
+        d3.selectAll("#" + el.id + " .layer")
+        .transition()
+        .duration(250)
+        .attr("opacity", "1")
+        .classed("hover", false)
+        .attr("stroke-width", "0px")
+
+      } else {
+
+        d3.selectAll("#" + el.id + " .layer")
+          .classed("hover", function(d) {
+            return d.key != selected_value ? false : true;
+          })
+          .transition()
+          .duration(150)
+          .attr("opacity", function(d) {
+            return d.key != selected_value ? opacity : 1;
+          })
+          .attr("stroke", strokecolor)
+          .attr("stroke-width", function(d) {
+            return d.key != selected_value ? "0px" : "0.5px";
+          })
+      }
+
+    };
+
+    if (params.legend && params.interactive) {
+
+      var select = d3.select("#" + el.id)
+          .append('select')
+          .attr('class','select')
+          .on('change', onselchange)
+
+      var selopts = d3.set(data.map(function(d) { return(d.key) })).values()
+      selopts.unshift("——— Select ———")
+
+      var options = select
+         .selectAll('option')
+         .data(selopts).enter()
+         .append('option')
+           .text(function (d) { return d; })
+           .attr("value", function (d) { return d; })
+      }
+
+    },
 
   resize: function(el, width, height, instance) {
     if (instance.params)
@@ -183,25 +233,3 @@ HTMLWidgets.widget({
     }
 
 });
-
-function drawLegend (varNames) {
-    var legend = svg.selectAll(".legend")
-        .data(varNames.slice().reverse())
-      .enter().append("g")
-        .attr("class", "legend")
-        .attr("transform", function (d, i) { return "translate(55," + i * 20 + ")"; });
-
-    legend.append("rect")
-        .attr("x", width - 10)
-        .attr("width", 10)
-        .attr("height", 10)
-        .style("fill", color)
-        .style("stroke", "grey");
-
-    legend.append("text")
-        .attr("x", width - 12)
-        .attr("y", 6)
-        .attr("dy", ".35em")
-        .style("text-anchor", "end")
-        .text(function (d) { return d; });
-}
