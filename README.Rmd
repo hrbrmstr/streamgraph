@@ -1,7 +1,7 @@
 ---
 title: "README"
 author: "Bob Rudis"
-date: February 14, 2015
+date: February 15, 2015
 output:
   md_document:
     variant: markdown_github
@@ -9,7 +9,7 @@ output:
 
 streamgraph is an htmlwidget for making streamgraphs. Planned support for `xts` objects.
 
-[Sample Rmd](http://rpubs.com/hrbrmstr/streamgraph_03)
+[Sample Rmd](http://rpubs.com/hrbrmstr/streamgraph04)
 
 A streamgraph (or "stream graph") is a type of stacked area graph 
 which is displaced around a central axis, resulting in a flowing, 
@@ -23,6 +23,7 @@ The following functions are implemented:
 - `sg_axis_x`	: Modify streamgraph x axis formatting
 - `sg_axis_y`	: Modify streamgraph y axis formatting
 - `sg_colors`	: Modify streamgraph colors
+- `sg_legend` : Add select menu "legend" to interactive streamgraphs
 
 ### News
 
@@ -32,6 +33,7 @@ The following functions are implemented:
 - Version `0.2.2` relased - rly rly rly fixed tooltips now, also assed ability to format y axis text
 - Version `0.3` released - folks can have some fun with new `offset` and `interpolate` parameters to `streamgraph`
 - Version `0.3.1` released - bug fix to fix error with `d3.stack`; `streamgraph` will now see if the date input is a year and automatically convert it to the necessary format (no need to use `as.Date`)
+- Version `0.4` released - select menu "legend" (interactive only)
 
 ### Installation
 

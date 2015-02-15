@@ -1,5 +1,3 @@
-var dbg ;
-
 HTMLWidgets.widget({
 
   name: 'streamgraph',
@@ -31,8 +29,6 @@ HTMLWidgets.widget({
       d.value = +d.value;
     });
 
-   dbg = data ;
-
     // assign colors
 
     var colorrange = [];
@@ -54,7 +50,8 @@ HTMLWidgets.widget({
 
     var x = d3.time.scale().range([0, width]);
     var y = d3.scale.linear().range([height-10, 0]);
-    var z = d3.scale.ordinal().range(colorrange).domain(d3.set(data.map(function(d) { return(d.key) })).values());
+    var z = d3.scale.ordinal().range(colorrange)
+              .domain(d3.set(data.map(function(d) { return(d.key) })).values());
     var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
     var xAxis = d3.svg.axis().scale(x)
@@ -105,7 +102,7 @@ HTMLWidgets.widget({
     .attr("d", function(d) { return area(d.values); })
     .style("fill", function(d, i) { return z(d.key); });
 
-    // TODO legends in general but by defalt if not interactive
+    // TODO legends for non-interactive
     // TODO add tracker vertical line
 
     if (params.interactive) {
@@ -124,6 +121,10 @@ HTMLWidgets.widget({
         })})
 
       .on("mousemove", function(dd, i) {
+
+        d3.select("#" + el.id + "-select")
+        .selectAll("option")
+        .attr("selected", function(d, i) { if (i==0) { return("selected") } })
 
         function iskey(key) {
           return(function(element) {
@@ -177,7 +178,7 @@ HTMLWidgets.widget({
 
       var selected_value = d3.event.target.value;
 
-      tooltip.text("")
+      tooltip.text("");
 
       if (selected_value == "——— Select ———") {
 
@@ -209,15 +210,19 @@ HTMLWidgets.widget({
 
     if (params.legend && params.interactive) {
 
-      var select = d3.select("#" + el.id)
-          .append('select')
-          .attr('class','select')
+      if (params.legend_label != "") {
+        d3.select("#" + el.id + "-legend label")
+          .text(params.legend_label)
+      }
+
+      var select = d3.select("#" + el.id + "-select")
+          .style("visibility", "visible")
           .on('change', onselchange)
 
       var selopts = d3.set(data.map(function(d) { return(d.key) })).values()
       selopts.unshift("——— Select ———")
 
-      var options = select
+      var options = d3.select("#" + el.id + "-select")
          .selectAll('option')
          .data(selopts).enter()
          .append('option')

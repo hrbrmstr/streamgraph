@@ -23,9 +23,6 @@
 #'        \code{linear}, \code{step}, \code{step-before}, \code{step-after}, \code{basis}, \code{basis-open},
 #'        \code{cardinal-open}, \code{monotone}
 #' @param interactive set to \code{FALSE} if you do not want an interactive streamgraph
-#' @param legend if this is \code{TRUE} and \code{interactive} is \code{TRUE} then a popup menu
-#'        will be available that lists ll the keys in the data set. Selecting a key will
-#'        perform the same action as hovering over the area with the mouse.
 #' @param top top margin (default should be fine, this allows for fine-tuning plot space)
 #' @param right right margin (default should be fine, this allows for fine-tuning plot space)
 #' @param bottom bottom margin (default should be fine, this allows for fine-tuning plot space)
@@ -55,7 +52,6 @@ streamgraph <- function(data,
                         offset="silhouette",
                         interpolate="cardinal",
                         interactive=TRUE,
-                        legend=FALSE,
                         top=20,
                         right=40,
                         bottom=30,
@@ -121,7 +117,8 @@ streamgraph <- function(data,
     right=right,
     bottom=bottom,
     left=left,
-    legend=legend
+    legend=FALSE,
+    legend_label=""
   )
 
   htmlwidgets::createWidget(
@@ -237,4 +234,63 @@ sg_colors <- function(sg, palette="Spectral") {
 
   sg
 
+}
+
+#' Modify streamgraph legend properties
+#'
+#' If the \code{streamgraph} is interactive, a "legend" can be added
+#' that displays a select menu of all the stream categories. Selecting
+#' a category will highlight that stream in the graph.
+#'
+#' TODO: legends for non-interactive streamgraphs
+#'
+#' @param show if this is \code{TRUE} and \code{interactive} is \code{TRUE} then a popup menu
+#'        will be available that lists ll the keys in the data set. Selecting a key will
+#'        perform the same action as hovering over the area with the mouse.
+#' @param label label for the legend (optional)
+#' @export
+#' @examples \dontrun{
+#' library(dplyr)
+#' library(streamgraph)
+#' ggplot2::movies %>%
+#' select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
+#'   tidyr::gather(genre, value, -year) %>%
+#'   group_by(year, genre) %>%
+#'   tally(wt=value) %>%
+#'   ungroup %>%
+#'   mutate(year=as.Date(sprintf("%d-01-01", year))) -> dat
+#'
+#' streamgraph(dat, "genre", "n", "year") %>%
+#'   sg_colors("PuOr") %>%
+#'   sg_legend(TRUE, "Genre: ")
+#' }
+sg_legend <- function(sg, show=FALSE, label="") {
+
+  sg$x$legend <- show
+  sg$x$legend_label <- label
+
+  sg
+
+}
+
+#' Widget output function for use in Shiny
+#'
+#' @export
+streamgraphOutput <- function(outputId, width = '100%', height = '400px'){
+  shinyWidgetOutput(outputId, 'streamgraph', width, height, package = 'streamgraph')
+}
+
+
+#' Widget render function for use in Shiny
+#'
+#' @export
+renderStreamgraph <- function(expr, env = parent.frame(), quoted = FALSE) {
+  if (!quoted) { expr <- substitute(expr) } # force quoted
+  shinyRenderWidget(expr, streamgraphOutput, env, quoted = TRUE)
+}
+
+streamgraph_html <- function(id, style, class, ...) {
+  list(tags$div(id = id, class = class, style = style),
+       tags$div(id = sprintf("%s-legend", id), class = sprintf("%s-legend", class),
+                HTML(sprintf("<center><label for='%s-select'></label><select id='%s-select' style='visibility:hidden;'></select></center>", id, id))))
 }

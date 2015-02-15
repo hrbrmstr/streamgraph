@@ -16,9 +16,12 @@ ggplot2::movies %>%
   tally(wt=value) %>%
   ungroup -> dat
 
-streamgraph(dat, "genre", "n", "year", interactive=TRUE, legend=TRUE) %>%
+streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_axis_x(20, "year", "%Y") %>%
-  sg_colors("Spectral")
+  sg_colors("Spectral") %>%
+  sg_legend(TRUE, "Genre")
+
+
 
 str(ggplot2::movies)
 
@@ -59,9 +62,12 @@ babynames %>%
   filter(sex=="F",
          name %in% dat1$name) -> dat
 
-streamgraph(dat, "name", "n", "year", legend=TRUE) %>%
+streamgraph(dat, "name", "n", "year") %>%
   sg_colors("Spectral") %>%
-  sg_axis_x(tick_units = "year", tick_interval = 10, tick_format = "%Y")
+  sg_axis_x(tick_units = "year", tick_interval = 10, tick_format = "%Y") %>%
+  sg_legend(TRUE, "Name: ")
+
+
 
 
 babynames[babynames$name %in% dat1$name,]
