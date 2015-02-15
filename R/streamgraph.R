@@ -289,8 +289,8 @@ renderStreamgraph <- function(expr, env = parent.frame(), quoted = FALSE) {
   shinyRenderWidget(expr, streamgraphOutput, env, quoted = TRUE)
 }
 
-streamgraph_html <- function(id, style, class, ...) {
+streamgraph_html <- function(id, style, class, width, height, ...) {
   list(tags$div(id = id, class = class, style = style),
-       tags$div(id = sprintf("%s-legend", id), class = sprintf("%s-legend", class),
+       tags$div(id = sprintf("%s-legend", id), style=sprintf("width:%s", width), class = sprintf("%s-legend", class),
                 HTML(sprintf("<center><label for='%s-select'></label><select id='%s-select' style='visibility:hidden;'></select></center>", id, id))))
 }
