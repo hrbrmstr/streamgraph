@@ -1,0 +1,128 @@
+---
+title: "Introduction to the streamgraph htmlwidgtet R Package"
+output:
+  html_document:
+    theme: spacelab
+    highlight: tango
+---
+[streamgraph](http://github.com/hrbrmstr/streamgraph) is an [htmlwidget](https://github.com/ramnathv/htmlwidgets)
+ JavaScript/D3 chart library.
+
+## Installation
+
+`devtools::install_github("hrbrmstr/streamgraph")`
+
+## Usage
+
+```{r setup, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+options(dplyr.print_min = 4L, dplyr.print_max = 4L)
+library(streamgraph)
+```
+
+The `streamgraph` pacakge is an `htmlwidget`^[http://www.htmlwidgets.org/] that is based on the `D3.js`^[http://d3js.org/] JavaScript library.
+
+>_"Streamgraphs are a generalization of stacked area graphs where the baseline is free. By shifting the baseline, it is possible to minimize the change in slope (or _wiggle_) in individual series, thereby making it easier to perceive the thickness of any given layer across the data. Byron & Wattenberg describe several streamgraph algorithms in 'Stacked Graphs—Geometry & Aesthetics^[http://www.leebyron.com/else/streamgraph/]'"_^[Bostock. http://bl.ocks.org/mbostock/4060954]
+
+Even though streamgraphs can be controversial^[Kirk. http://www.visualisingdata.com/index.php/2010/08/making-sense-of-streamgraphs/], they make for very compelling visualizations, especially when displaying very large datasets. They work even better when there is an interactive component involved that enables the following of each "flow" or allow filtering the view in some way. This makes R a great choice for streamgraph creation & exploration given that it excels at data manipulation and has libraries such as Shiny^[http://shiny.rstudio.com/] that reduce the complexity of the creation of interactive interfaces.
+
+## Making a streamgraph
+
+The first example mimics the streamgraphs in the Name Voyager^[http://www.bewitched.com/namevoyager.html] project. We'll use the R `babynames` package^[Wickham. http://cran.r-project.org/web/packages/babynames/index.html] as the data source and use the `streamgraph` package to see the ebb & flow of "`Kr-`" and "`I-`" names in the United States over the years (1880-2013).
+
+```{r krbabies, message=FALSE, fig.width=9, fig.cap="'Kr-' names (1880-2013)"}
+library(dplyr)
+library(babynames)
+library(streamgraph)
+
+babynames %>%
+  filter(grepl("^Kr", name)) %>%
+  group_by(year, name) %>%
+  tally(wt=n) %>%
+  streamgraph("name", "n", "year")
+```
+
+You create streamgraphs with the `streamgraph` function. This first example uses the default values for the aesthetic properties of the streamgraph, but we have passed in "`name`", "`n`" and "`year`" for the `key`, `value` and `date` parameters. If your data already has column names in the expected format, you do not need to specify any values for those parameters.
+
+The current version of `streamgraph` requires a date-based x-axis, but is smart enough to notice if the values for the `date` column are years and automatically performs the necessary work under the covers to convert the data into the required format for the underlying D3 processing.
+
+The default behavior of the `streamgraph` function is to have the graph centered in the y-axis, with smoothed "streams".
+
+```{r ibabies, message=FALSE, fig.width=9.5, fig.cap="'I-' names (1880-2013)"}
+library(dplyr)
+library(babynames)
+library(streamgraph)
+
+babynames %>%
+  filter(grepl("^I", name)) %>%
+  group_by(year, name) %>%
+  tally(wt=n) %>%
+  streamgraph("name", "n", "year", offset="zero", interpolate="linear") %>%
+  sg_legend(show=TRUE, label="I- names: ")
+```
+
+This example changes the baseline for the `streamgraph` to `0` and uses a linear interpolation (making the graph more "pointy") and adds a "legend", which is really just a select menu with all the categories of the "streams". Selecting a category will highlight that stream on the streamgraph.
+
+Here is a sampling of options using a housing data set from a [blog post](http://asbcllc.com/blog/2015/february/cre_stream_graph_test/) by [Alex Bresler](https://twitter.com/abresler):
+
+```{r fig.width=9.5}
+dat <- read.csv("http://asbcllc.com/blog/2015/february/cre_stream_graph_test/data/cre_transaction-data.csv")
+
+dat %>%
+  streamgraph("asset_class", "volume_billions", "year", interpolate="cardinal") %>%
+  sg_axis_x(1, "year", "%Y") %>%
+  sg_colors("PuOr")
+```
+
+One could possibly call this one a "minegraph"?
+
+```{r fig.width=9.5}
+dat %>%
+  streamgraph("asset_class", "volume_billions", "year", offset="silhouette", interpolate="step") %>%
+  sg_axis_x(1, "year", "%Y") %>%
+  sg_colors("PuOr")
+```
+
+```{r fig.width=9.5}
+dat %>%
+  streamgraph("asset_class", "volume_billions", "year", offset="zero", interpolate="cardinal") %>%
+  sg_axis_x(1, "year", "%Y") %>%
+  sg_colors("PuOr") %>%
+  sg_legend(TRUE, "Asset class: ")
+```
+
+Now, who let that stacked bar chart in here `;-)`
+
+```{r fig.width=9.5}
+dat %>%
+  streamgraph("asset_class", "volume_billions", "year", offset="zero", interpolate="step") %>%
+  sg_axis_x(1, "year", "%Y") %>%
+  sg_colors("PuOr")
+```
+
+
+### Data Expectations
+
+The data to use for a `streamgraph` should be in "long format"^[http://blog.rstudio.org/2014/07/22/introducing-tidyr/]. The following example shows how to produce a `streamgraph` from the `ggplot2` `movies` data set.
+
+```{r movies, message=FALSE, fig.width=9.5, fig.cap="Count of movie genres over time"}
+ggplot2::movies %>%
+  select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
+  tidyr::gather(genre, value, -year) %>%
+  group_by(year, genre) %>%
+  tally(wt=value) %>%
+  ungroup %>%
+  streamgraph("genre", "n", "year") %>%
+  sg_axis_x(20) %>%
+  sg_colors("PuOr") %>%
+  sg_legend(show=TRUE, label="Genres: ")
+```
+
+We first select the columns we want to be in "streams", then gather them up and count them by year. We make one change to the aesthetics by using year ticks every 20 years. We also select a different ColorBrewer^[http://colorbrewer2.org/] palette for the graph.
+
+The underlying `d3.stack` object needs all categories for every date observation. The \code{streamgraph} function does something akin to `expand.grid` to ensure the data meets the requirements.
+
+The \code{streamgraph} widget expects dates for the x axis. Support is planned for `xts` objects and `POSIXct` types (to support less than a single day granularity). The only built-in JavaScript restriction for the x axis is that it needs to be continuous. If there's sufficient clamor for support for non-time series data (requested via a github issue) I'll add that to the TODO list.
+
+<hr noshade size=1>
+<div style="font-size:10px">streamgraph R package by Bob Rudis <br/>htmlwidgets R package by Ramnath Vaidyanathan, Kenton Russell <br/>D3 JavaScript library by Mike Bostock.<br/><br/></div>
