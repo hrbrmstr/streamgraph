@@ -9,6 +9,6 @@ svg text {
   font: 10px "Gill Sans", "Helvetica", "sans-serif";
 }
 
-p, select, option, label {
+select, option, label {
   font: 12px "Gill Sans", "Helvetica", "sans-serif";
 }
