@@ -7,10 +7,11 @@ output: html_document
 
 [GitHub repo](http://github.com/hrbrmstr/streamgraph)
 
-```{r fig.width=10}
-suppressPackageStartupMessages(library(streamgraph))
-suppressPackageStartupMessages(library(dplyr))
-suppressPackageStartupMessages(library(babynames))
+```{r fig.width=10, message=FALSE}
+library(streamgraph)
+library(dplyr)
+library(babynames)
+library(DT)
 
 ggplot2::movies %>%
   select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
@@ -38,6 +39,10 @@ dat %>%
   streamgraph("asset_class", "volume_billions", "year", interpolate="cardinal") %>%
   sg_axis_x(1, "year", "%Y") %>%
   sg_colors("PuOr")
+```
+
+```{r echo=FALSE}
+datatable(dat)
 ```
 
 ```{r fig.width=10}

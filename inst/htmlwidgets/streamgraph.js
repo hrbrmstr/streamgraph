@@ -1,3 +1,5 @@
+var dbg ;
+
 HTMLWidgets.widget({
 
   name: 'streamgraph',
@@ -57,6 +59,8 @@ HTMLWidgets.widget({
       .ticks(d3.time[params.x_tick_units], params.x_tick_interval)
       .tickFormat(d3.time.format(params.x_tick_format))
       .tickPadding(8);
+
+   dbg = xAxis ;
 
     var yAxis = d3.svg.axis().scale(y)
       .ticks(params.y_tick_count)
@@ -179,3 +183,25 @@ HTMLWidgets.widget({
     }
 
 });
+
+function drawLegend (varNames) {
+    var legend = svg.selectAll(".legend")
+        .data(varNames.slice().reverse())
+      .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function (d, i) { return "translate(55," + i * 20 + ")"; });
+
+    legend.append("rect")
+        .attr("x", width - 10)
+        .attr("width", 10)
+        .attr("height", 10)
+        .style("fill", color)
+        .style("stroke", "grey");
+
+    legend.append("text")
+        .attr("x", width - 12)
+        .attr("y", 6)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function (d) { return d; });
+}

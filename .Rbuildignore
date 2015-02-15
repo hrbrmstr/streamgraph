@@ -1,17 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.travis\.yml$
-<<<<<<< HEAD
 README\.md
 README\.Rmd
 streamgraph\.Rmd
 streamgraph\.html
-^.*\.html$
-=======
-README.md
-README.Rmd
-streamgraph.Rmd
-streamgraph.md
-^.*\.html$
-
->>>>>>> c21b34b311ad563175566ac6c1a6f8c8678f0f5c
