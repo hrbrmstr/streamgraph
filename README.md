@@ -10,7 +10,7 @@ The following functions are implemented:
 -   `sg_axis_x` : Modify streamgraph x axis formatting
 -   `sg_axis_y` : Modify streamgraph y axis formatting
 -   `sg_colors` : Modify streamgraph colors
--   `sg_legend` : Add select meny "legend" to interactive streamgraphs
+-   `sg_legend` : Add select menu "legend" to interactive streamgraphs
 
 ### News
 
@@ -20,6 +20,7 @@ The following functions are implemented:
 -   Version `0.2.2` relased - rly rly rly fixed tooltips now, also assed ability to format y axis text
 -   Version `0.3` released - folks can have some fun with new `offset` and `interpolate` parameters to `streamgraph`
 -   Version `0.3.1` released - bug fix to fix error with `d3.stack`; `streamgraph` will now see if the date input is a year and automatically convert it to the necessary format (no need to use `as.Date`)
+-   Version `0.4` released - select menu "legend" (interactive only)
 
 ### Installation
 
@@ -65,7 +66,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sun Feb 15 08:05:19 2015"
+    ## [1] "Sun Feb 15 08:08:51 2015"
 
 ``` r
 test_dir("tests/")
