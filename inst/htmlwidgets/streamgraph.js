@@ -36,9 +36,13 @@ HTMLWidgets.widget({
     var opacity = 0.33 ;
 
     var ncols = d3.map(data, function(d) { return(d.key) }).keys().length;
-    if (ncols > 9) ncols = 9
 
-    colorrange = colorbrewer[params.palette][ncols];
+    if (params.fill == "brewer") {
+      if (ncols > 9) ncols = 9
+      colorrange = colorbrewer[params.palette][ncols];
+    } else if (params.fill == "manual") {
+      colorrange = params.palette;
+    }
     strokecolor = colorrange[0];
 
     // setup size, scales and axes

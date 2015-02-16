@@ -13,15 +13,14 @@ ggplot2::movies %>%
   select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
   tidyr::gather(genre, value, -year) %>%
   group_by(year, genre) %>%
-  tally(wt=value) %>%
-  ungroup -> dat
+  tally(wt=value) -> dat
 
 streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_axis_x(20, "year", "%Y") %>%
-  sg_colors("Spectral") %>%
+  sg_fill_tableau("tableau10medium") %>%
+#   sg_fill_manual(c("red", "#00ff00", rgb(0,0,1))) %>%
+#   sg_fill_brewer("Spectral") %>%
   sg_legend(TRUE, "Genre")
-
-
 
 str(ggplot2::movies)
 
@@ -63,7 +62,8 @@ babynames %>%
          name %in% dat1$name) -> dat
 
 streamgraph(dat, "name", "n", "year") %>%
-  sg_colors("Spectral") %>%
+  sg_fill_tableau() %>%
+#   sg_colors("Spectral") %>%
   sg_axis_x(tick_units = "year", tick_interval = 10, tick_format = "%Y") %>%
   sg_legend(TRUE, "Name: ")
 
