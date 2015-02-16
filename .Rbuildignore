@@ -5,3 +5,4 @@ README\.md
 README\.Rmd
 streamgraph\.Rmd
 streamgraph\.html
+^\.example.png$
