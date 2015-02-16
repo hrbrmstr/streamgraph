@@ -9,8 +9,11 @@ The following functions are implemented:
 -   `streamgraph` : Create a new streamgraph
 -   `sg_axis_x` : Modify streamgraph x axis formatting
 -   `sg_axis_y` : Modify streamgraph y axis formatting
--   `sg_colors` : Modify streamgraph colors
+-   `sg_colors` : Modify streamgraph colors (NOTE: functionality will change soon, use `sg_fill_*` for fill colors)
 -   `sg_legend` : Add select menu "legend" to interactive streamgraphs
+-   `sg_fill_brewer` : Specify a ColorBrewer palette to use for the stream fills
+-   `sg_fill_manual` : Specify a manual color palette to use for the stream fills
+-   `sg_fill_tableau` : Specify a Tableau color palette to use for the stream flls
 
 ### News
 
@@ -23,6 +26,7 @@ The following functions are implemented:
 -   Version `0.4` released - select menu "legend" (interactive only)
 -   Version `0.4.1` released - removed warning message when supplyign `POSIXct` values (remember, `POSIXct` still only works for granularities \>= 1 day)
 -   Versioin `0.4.2` released - fixed bug (thanks to teammate @bhaskarvk) that causes inconsistent color rendering for each area component (noticeable on resize of flexible width/height graphs)
+-   Version `0.5` released - deprecated use of `sg_colors`. Its functionality will change soon and is replaced by three `sg_fill_*` functions (`brewer`, `manual` and `tableau`) which makes more sense, is aligned to the `ggplot2` way of specifying fill aesthetics and now makes it easier to highly customize the streamgraph appearance.
 
 ### Installation
 
@@ -68,7 +72,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sun Feb 15 22:01:42 2015"
+    ## [1] "Mon Feb 16 09:50:39 2015"
 
 ``` r
 test_dir("tests/")
