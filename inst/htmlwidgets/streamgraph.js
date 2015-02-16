@@ -38,7 +38,7 @@ HTMLWidgets.widget({
     var ncols = d3.map(data, function(d) { return(d.key) }).keys().length;
     if (ncols > 9) ncols = 9
 
-    colorrange = colorbrewer[params.palette][ncols].reverse();
+    colorrange = colorbrewer[params.palette][ncols];
     strokecolor = colorrange[0];
 
     // setup size, scales and axes
@@ -51,7 +51,7 @@ HTMLWidgets.widget({
     var x = d3.time.scale().range([0, width]);
     var y = d3.scale.linear().range([height-10, 0]);
     var z = d3.scale.ordinal().range(colorrange)
-              .domain(d3.set(data.map(function(d) { return(d.key) })).values());
+              .domain(d3.set(data.map(function(d) { return(d.key) })).values().sort());
     var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
     var xAxis = d3.svg.axis().scale(x)
