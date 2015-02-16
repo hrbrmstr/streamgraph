@@ -1,7 +1,7 @@
 ---
-title: "streamgraph 0.4"
+title: "streamgraph 0.5"
 author: '@hrbrmstr'
-date: "February 15, 2015"
+date: "February 16, 2015"
 output: html_document
 ---
 
@@ -17,12 +17,11 @@ ggplot2::movies %>%
   select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
   tidyr::gather(genre, value, -year) %>%
   group_by(year, genre) %>%
-  tally(wt=value) %>%
-  ungroup -> dat
+  tally(wt=value) -> dat
 
 streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_axis_x(20, "year", "%Y") %>%
-  sg_colors("PuOr")
+  sg_fill_brewer("PuOr")
 ```
 
 ```{r fig.width=10}
@@ -38,7 +37,7 @@ dat <- read.csv("http://asbcllc.com/blog/2015/february/cre_stream_graph_test/dat
 dat %>%
   streamgraph("asset_class", "volume_billions", "year", interpolate="cardinal") %>%
   sg_axis_x(1, "year", "%Y") %>%
-  sg_colors("PuOr")
+  sg_fill_brewer("PuOr")
 ```
 
 ```{r echo=FALSE}
@@ -49,14 +48,14 @@ datatable(dat)
 dat %>%
   streamgraph("asset_class", "volume_billions", "year", offset="silhouette", interpolate="step") %>%
   sg_axis_x(1, "year", "%Y") %>%
-  sg_colors("PuOr")
+  sg_fill_brewer("PuOr")
 ```
 
 ```{r fig.width=10}
 dat %>%
   streamgraph("asset_class", "volume_billions", "year", offset="zero", interpolate="cardinal") %>%
   sg_axis_x(1, "year", "%Y") %>%
-  sg_colors("PuOr") %>%
+  sg_fill_brewer("PuOr") %>%
   sg_legend(TRUE, "Asset class: ")
 ```
 
@@ -66,7 +65,7 @@ Now, who let that stacked bar chart get in here `;-)`
 dat %>%
   streamgraph("asset_class", "volume_billions", "year", offset="zero", interpolate="step") %>%
   sg_axis_x(1, "year", "%Y") %>%
-  sg_colors("PuOr")
+  sg_fill_brewer("PuOr")
 ```
 
 ```{r fig.width=10}
@@ -82,7 +81,7 @@ babynames %>%
          name %in% dat1$name) -> dat
 
 streamgraph(dat, "name", "n", "year") %>%
-  sg_colors("Spectral") %>%
+  sg_fill_tableau() %>%
   sg_axis_x(tick_units = "year", tick_interval = 10, tick_format = "%Y") %>%
   sg_legend(TRUE, "Name: ")
 ```

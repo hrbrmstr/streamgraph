@@ -1,6 +1,6 @@
 streamgraph is an htmlwidget for making streamgraphs. Planned support for `xts` objects.
 
-[Sample Rmd](http://rpubs.com/hrbrmstr/streamgraph04)
+[Sample Rmd](http://rpubs.com/hrbrmstr/59200)
 
 A streamgraph (or "stream graph") is a type of stacked area graph which is displaced around a central axis, resulting in a flowing, organic shape. Streamgraphs were developed by Lee Byron and popularized by their use in a February 2008 New York Times article on movie box office revenues. ([Wikipedia](http://en.wikipedia.org/wiki/Streamgraph))
 
@@ -48,12 +48,11 @@ ggplot2::movies %>%
   select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
   tidyr::gather(genre, value, -year) %>%
   group_by(year, genre) %>%
-  tally(wt=value) %>%
-  ungroup -> dat
+  tally(wt=value) -> dat
 
 streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_axis_x(20, "year", "%Y") %>%
-  sg_colors("PuOr")
+  sg_fill_brewer("PuOr")
 ```
 
 ### Test Results
@@ -72,7 +71,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Mon Feb 16 09:50:39 2015"
+    ## [1] "Mon Feb 16 09:54:54 2015"
 
 ``` r
 test_dir("tests/")
