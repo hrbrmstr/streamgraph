@@ -9,6 +9,8 @@ output:
 
 streamgraph is an htmlwidget for making streamgraphs. Planned support for `xts` objects.
 
+![example](example.png)
+
 [Sample Rmd](http://rpubs.com/hrbrmstr/59200)
 
 A streamgraph (or "stream graph") is a type of stacked area graph 

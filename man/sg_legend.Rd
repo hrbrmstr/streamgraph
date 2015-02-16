@@ -34,7 +34,7 @@ select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) \%>\
   mutate(year=as.Date(sprintf("\%d-01-01", year))) -> dat
 
 streamgraph(dat, "genre", "n", "year") \%>\%
-  sg_colors("PuOr") \%>\%
+  sg_fill_brewer("PuOr") \%>\%
   sg_legend(TRUE, "Genre: ")
 }
 }

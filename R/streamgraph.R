@@ -380,7 +380,7 @@ sg_fill_manual <- function(sg, values=NULL) {
 #'   mutate(year=as.Date(sprintf("%d-01-01", year))) -> dat
 #'
 #' streamgraph(dat, "genre", "n", "year") %>%
-#'   sg_colors("PuOr") %>%
+#'   sg_fill_brewer("PuOr") %>%
 #'   sg_legend(TRUE, "Genre: ")
 #' }
 sg_legend <- function(sg, show=FALSE, label="") {
@@ -411,5 +411,5 @@ renderStreamgraph <- function(expr, env = parent.frame(), quoted = FALSE) {
 streamgraph_html <- function(id, style, class, width, height, ...) {
   list(tags$div(id = id, class = class, style = style),
        tags$div(id = sprintf("%s-legend", id), style=sprintf("width:%s", width), class = sprintf("%s-legend", class),
-                HTML(sprintf("<center><label for='%s-select'></label><select id='%s-select' style='visibility:hidden;'></select></center>", id, id))))
+                HTML(sprintf("<center><label style='padding-right:5px' for='%s-select'></label><select id='%s-select' style='visibility:hidden;'></select></center>", id, id))))
 }
