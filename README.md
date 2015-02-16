@@ -1,4 +1,4 @@
-streamgraph is an htmlwidget for making streamgraphs. Planned support for `xts` objects.
+streamgraph is an htmlwidget for making streamgraphs.
 
 ![example](example.png)
 
@@ -16,6 +16,8 @@ The following functions are implemented:
 -   `sg_fill_brewer` : Specify a ColorBrewer palette to use for the stream fills
 -   `sg_fill_manual` : Specify a manual color palette to use for the stream fills
 -   `sg_fill_tableau` : Specify a Tableau color palette to use for the stream flls
+
+Support is planned for `xts` objects, but not for a bit.
 
 ### News
 
@@ -73,7 +75,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Mon Feb 16 18:48:08 2015"
+    ## [1] "Mon Feb 16 18:50:07 2015"
 
 ``` r
 test_dir("tests/")
