@@ -71,7 +71,7 @@ dat <- read.csv("http://asbcllc.com/blog/2015/february/cre_stream_graph_test/dat
 dat %>%
   streamgraph("asset_class", "volume_billions", "year", interpolate="cardinal") %>%
   sg_axis_x(1, "year", "%Y") %>%
-  sg_colors("PuOr")
+  sg_fill_brewer("PuOr")
 ```
 
 One could possibly call this one a "minegraph"?
@@ -80,14 +80,14 @@ One could possibly call this one a "minegraph"?
 dat %>%
   streamgraph("asset_class", "volume_billions", "year", offset="silhouette", interpolate="step") %>%
   sg_axis_x(1, "year", "%Y") %>%
-  sg_colors("PuOr")
+  sg_fill_brewer("PuOr")
 ```
 
 ```{r fig.width=9.5}
 dat %>%
   streamgraph("asset_class", "volume_billions", "year", offset="zero", interpolate="cardinal") %>%
   sg_axis_x(1, "year", "%Y") %>%
-  sg_colors("PuOr") %>%
+  sg_fill_brewer("PuOr") %>%
   sg_legend(TRUE, "Asset class: ")
 ```
 
@@ -97,7 +97,7 @@ Now, who let that stacked bar chart in here `;-)`
 dat %>%
   streamgraph("asset_class", "volume_billions", "year", offset="zero", interpolate="step") %>%
   sg_axis_x(1, "year", "%Y") %>%
-  sg_colors("PuOr")
+  sg_fill_brewer("PuOr")
 ```
 
 
@@ -114,7 +114,7 @@ ggplot2::movies %>%
   ungroup %>%
   streamgraph("genre", "n", "year") %>%
   sg_axis_x(20) %>%
-  sg_colors("PuOr") %>%
+  sg_fill_brewer("PuOr") %>%
   sg_legend(show=TRUE, label="Genres: ")
 ```
 
