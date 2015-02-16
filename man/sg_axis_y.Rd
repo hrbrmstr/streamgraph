@@ -18,7 +18,7 @@ make this \code{0} if you want to hide the y axis labels}
 streamgraph object
 }
 \description{
-Change the tick count
+Change the tick count & format
 }
 \examples{
 \dontrun{

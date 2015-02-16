@@ -77,7 +77,7 @@ streamgraph <- function(data,
   xtf <- "%b"
   xti <- 1
 
-  if (class(data$date) %in% c("numeric", "character", "integer")) {
+  if (all(class(data$date) %in% c("numeric", "character", "integer"))) {
     if (all(nchar(as.character(data$date)) == 4)) {
       data %>%
         mutate(date=sprintf("%04d-01-01", as.numeric(date))) -> data
@@ -172,7 +172,7 @@ sg_axis_x <- function(sg,
 
 #' Modify streamgraph y axis formatting
 #'
-#' Change the tick count
+#' Change the tick count & format
 #'
 #' @param sg streamgraph object
 #' @param tick_count number of y axis ticks, not tick interval (defaults to \code{5});
