@@ -4,19 +4,19 @@
 \alias{sg_colors}
 \title{Modify streamgraph colors}
 \usage{
-sg_colors(sg, axis_color = "black", tooltip_color = "black",
-  label_color = "black", palette = NULL)
+sg_colors(sg, palette = NULL, axis_color = "black",
+  tooltip_color = "black", label_color = "black")
 }
 \arguments{
 \item{sg}{streamgraph object}
+
+\item{palette}{UNUSED; being removed in next release; use \code{sg_fill_*} instead}
 
 \item{axis_color}{color of the axis text (defaults to "\code{black}")}
 
 \item{tooltip_color}{color of the tooltip text (defaults to "\code{black}")}
 
 \item{label_color}{color of the label text for the legend select menu (defaults to "\code{black}")}
-
-\item{palette}{UNUSED; being removed in next release; use \code{sg_fill_*} instead}
 }
 \value{
 streamgraph object

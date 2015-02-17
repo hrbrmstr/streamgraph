@@ -211,10 +211,10 @@ sg_axis_y <- function(sg, tick_count=5, tick_format=",g") {
 #' Change the ColorBrewer palette being used
 #'
 #' @param sg streamgraph object
+#' @param palette UNUSED; being removed in next release; use \code{sg_fill_*} instead
 #' @param axis_color color of the axis text (defaults to "\code{black}")
 #' @param tooltip_color color of the tooltip text (defaults to "\code{black}")
 #' @param label_color color of the label text for the legend select menu (defaults to "\code{black}")
-#' @param palette UNUSED; being removed in next release; use \code{sg_fill_*} instead
 #' @return streamgraph object
 #' @export
 #' @examples \dontrun{
@@ -231,7 +231,7 @@ sg_axis_y <- function(sg, tick_count=5, tick_format=",g") {
 #' streamgraph(dat, "genre", "n", "year") %>%
 #'   sg_colors("PuOr")
 #' }
-sg_colors <- function(sg, axis_color="black", tooltip_color="black", label_color="black", palette=NULL) {
+sg_colors <- function(sg, palette=NULL, axis_color="black", tooltip_color="black", label_color="black") {
 
   if (!is.null(palette)) {
     message("Use 'sg_fill_*' for setting stream colors. This parameter will be removed in an upcoming release.")

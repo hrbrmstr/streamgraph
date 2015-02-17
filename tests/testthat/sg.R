@@ -17,8 +17,8 @@ ggplot2::movies %>%
 
 streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_axis_x(20, "year", "%Y") %>%
-  sg_colors("red", "blue", "green") %>%
-  sg_fill_tableau("tableau10medium") %>%
+  sg_colors("#1F77B4", "#1F77B4", "black") %>%
+  sg_fill_tableau("tableau20") %>%
 #   sg_fill_manual(c("red", "#00ff00", rgb(0,0,1))) %>%
 #   sg_fill_brewer("Spectral") %>%
   sg_legend(TRUE, "Genre")
