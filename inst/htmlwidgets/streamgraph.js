@@ -149,7 +149,7 @@ HTMLWidgets.widget({
         .attr("stroke", strokecolor)
         .attr("stroke-width", "0.5px")
 
-        tooltip.text(dd.key + ": " + d.value)
+        tooltip.text(dd.key + ": " + d.value).attr("fill", params.tooltip);
 
       })
 
@@ -172,10 +172,12 @@ HTMLWidgets.widget({
     svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
+    .attr("fill", params.text)
     .call(xAxis);
 
     svg.append("g")
     .attr("class", "y axis")
+    .attr("fill", params.text)
     .call(yAxis);
 
     function onselchange() {
@@ -217,6 +219,7 @@ HTMLWidgets.widget({
       if (params.legend_label != "") {
         d3.select("#" + el.id + "-legend label")
           .text(params.legend_label)
+          .style("color", params.label_col)
       }
 
       var select = d3.select("#" + el.id + "-select")
