@@ -6,6 +6,13 @@ streamgraph is an htmlwidget for making streamgraphs.
 
 A streamgraph (or "stream graph") is a type of stacked area graph which is displaced around a central axis, resulting in a flowing, organic shape. Streamgraphs were developed by Lee Byron and popularized by their use in a February 2008 New York Times article on movie box office revenues. ([Wikipedia](http://en.wikipedia.org/wiki/Streamgraph))
 
+The x axis values can be continous or dates.
+
+### TODO
+
+-   Support is planned for `xts` objects, but not for a bit.
+-   Support for categorical/discrete x axis
+
 The following functions are implemented:
 
 -   `streamgraph` : Create a new streamgraph
@@ -16,8 +23,6 @@ The following functions are implemented:
 -   `sg_fill_brewer` : Specify a ColorBrewer palette to use for the stream fills
 -   `sg_fill_manual` : Specify a manual color palette to use for the stream fills
 -   `sg_fill_tableau` : Specify a Tableau color palette to use for the stream flls
-
-Support is planned for `xts` objects, but not for a bit.
 
 ### News
 
@@ -32,6 +37,7 @@ Support is planned for `xts` objects, but not for a bit.
 -   Versioin `0.4.2` released - fixed bug (thanks to teammate @bhaskarvk) that causes inconsistent color rendering for each area component (noticeable on resize of flexible width/height graphs)
 -   Version `0.5` released - deprecated use of `sg_colors`. Its functionality will change soon and is replaced by three `sg_fill_*` functions (`brewer`, `manual` and `tableau`) which makes more sense, is aligned to the `ggplot2` way of specifying fill aesthetics and now makes it easier to highly customize the streamgraph appearance.
 -   Version `0.5.1` released - `sg_colors` now has nothing to do with the stream fills but *does* set the axis text, legend popup label text and tooltip text.
+-   Version `0.6` released - New `scale` parameter to `streamgraph` lets you choose between continuous or date scales.
 
 ### Installation
 
@@ -76,7 +82,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Mon Feb 16 19:46:47 2015"
+    ## [1] "Sat Mar  7 12:45:54 2015"
 
 ``` r
 test_dir("tests/")

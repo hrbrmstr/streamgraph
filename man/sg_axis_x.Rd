@@ -9,13 +9,17 @@ sg_axis_x(sg, tick_interval = NULL, tick_units = NULL, tick_format = NULL)
 \arguments{
 \item{sg}{streamgraph object}
 
-\item{tick_interval}{interval between ticks, not tick count (defaults to \code{10} if source data is in years, otherwise \code{1})}
+\item{tick_units}{unit the ticks are in; d3 time scale unit specifier
+(defaults to \code{month} for \code{date} scale otherwise not used)}
 
-\item{tick_units}{unit the ticks are in; d3 time scale unit specifier (defaults to \code{month})}
+\item{tick_format}{how to show the labels (subset of \code{strftime}
+formatters for \code{date} scale, otherwise \code{sprintf} formats for
+\code{continuous} scale) (defaults to \code{\%b} - must specify if \code{continuous}).
+See \href{D3 formatting}{https://github.com/mbostock/d3/wiki/Formatting} for more details.}
 
-\item{tick_format}{how to show the labels (subset of \code{strftime} formatters) (defaults to \code{\%b})}
-
-\item{show}{show vertical gridlines? (defaults to \code{FALSE})}
+\item{ticks}{when \code{scale} is \code{date}, \code{ticks} is the interval
+between ticks. when \code{scale} is \code{continuous}, \code{ticks} is
+the total number of ticks (i.e. "tick count") [defaults to \code{10}]}
 }
 \value{
 streamgraph object

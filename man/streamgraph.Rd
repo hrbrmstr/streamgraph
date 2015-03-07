@@ -6,8 +6,8 @@
 \usage{
 streamgraph(data, key = "key", value = "value", date = "date",
   width = NULL, height = NULL, offset = "silhouette",
-  interpolate = "cardinal", interactive = TRUE, top = 20, right = 40,
-  bottom = 30, left = 50)
+  interpolate = "cardinal", interactive = TRUE, scale = "date",
+  top = 20, right = 40, bottom = 30, left = 50)
 }
 \arguments{
 \item{data}{data frame}
@@ -32,6 +32,8 @@ The default is probably fine fore most uses, but can be one of \code{cardinal} (
 \code{cardinal-open}, \code{monotone}}
 
 \item{interactive}{set to \code{FALSE} if you do not want an interactive streamgraph}
+
+\item{scale}{axis scale (\code{date} [default] or \code{continuous})}
 
 \item{top}{top margin (default should be fine, this allows for fine-tuning plot space)}
 
