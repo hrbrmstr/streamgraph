@@ -1,3 +1,5 @@
+var dbg, dbg2;
+
 HTMLWidgets.widget({
 
   name: 'streamgraph',
@@ -21,13 +23,21 @@ HTMLWidgets.widget({
 
     var format = d3.time.format("%Y-%m-%d");
 
+    dbg = params ;
+
     // reformat the data
     var data = HTMLWidgets.dataframeToD3(params.data) ;
 
     data.forEach(function(d) {
-      d.date = format.parse(d.date);
+      if (params.x_scale == "date") {
+        d.date = format.parse(d.date);
+      } else {
+        d.date = +d.date;
+      }
       d.value = +d.value;
     });
+
+    dbg2 = data
 
     // assign colors
 
@@ -52,7 +62,12 @@ HTMLWidgets.widget({
     width = width - margin.left - margin.right;
     height = height - margin.top - margin.bottom;
 
-    var x = d3.time.scale().range([0, width]);
+    var x ;
+    if (params.x_scale == "date") {
+      x = d3.time.scale().range([0, width]);
+    } else {
+      x = d3.scale.linear().range([0, width]) ;
+    }
     var y = d3.scale.linear().range([height-10, 0]);
     var z = d3.scale.ordinal().range(colorrange)
               .domain(d3.set(data.map(function(d) { return(d.key) })).values().sort());
@@ -60,9 +75,15 @@ HTMLWidgets.widget({
 
     var xAxis = d3.svg.axis().scale(x)
       .orient("bottom")
-      .ticks(d3.time[params.x_tick_units], params.x_tick_interval)
-      .tickFormat(d3.time.format(params.x_tick_format))
       .tickPadding(8);
+
+    if (params.x_scale == "continuous") {
+      xAxis = xAxis.ticks(params.x_tick_interval)
+                   .tickFormat(d3.format(params.x_tick_format))
+    } else {
+      xAxis = xAxis.ticks(d3.time[params.x_tick_units], params.x_tick_interval)
+                   .tickFormat(d3.time.format(params.x_tick_format))
+    }
 
     var yAxis = d3.svg.axis().scale(y)
       .ticks(params.y_tick_count)

@@ -23,6 +23,7 @@
 #'        \code{linear}, \code{step}, \code{step-before}, \code{step-after}, \code{basis}, \code{basis-open},
 #'        \code{cardinal-open}, \code{monotone}
 #' @param interactive set to \code{FALSE} if you do not want an interactive streamgraph
+#' @param scale axis scale (\code{date} [default] or \code{continuous})
 #' @param top top margin (default should be fine, this allows for fine-tuning plot space)
 #' @param right right margin (default should be fine, this allows for fine-tuning plot space)
 #' @param bottom bottom margin (default should be fine, this allows for fine-tuning plot space)
@@ -52,6 +53,7 @@ streamgraph <- function(data,
                         offset="silhouette",
                         interpolate="cardinal",
                         interactive=TRUE,
+                        scale="date",
                         top=20,
                         right=40,
                         bottom=30,
@@ -77,14 +79,26 @@ streamgraph <- function(data,
   xtf <- "%b"
   xti <- 1
 
-  if (all(class(data$date) %in% c("numeric", "character", "integer"))) {
-    if (all(nchar(as.character(data$date)) == 4)) {
-      data %>%
-        mutate(date=sprintf("%04d-01-01", as.numeric(date))) -> data
-      xtu <- "year"
-      xtf <- "%Y"
-      xti <- 10
+  if (scale=="date") {
+
+    # date format
+
+    if (all(class(data$date) %in% c("numeric", "character", "integer"))) {
+      if (all(nchar(as.character(data$date)) == 4)) {
+        data %>%
+          mutate(date=sprintf("%04d-01-01", as.numeric(date))) -> data
+        xtu <- "year"
+        xtf <- "%Y"
+        xti <- 10
+      }
     }
+
+  } else {
+
+    xtu <- NULL
+    xtf <- ",.0f"
+    xti <- 10
+
   }
 
   # needs all combos, so we do the equiv of expand.grid, but w/dplyr & tidyr
@@ -94,11 +108,15 @@ streamgraph <- function(data,
     mutate(value=ifelse(is.na(value), 0, value)) %>%
     select(key, value, date) -> data
 
-  # date format
+  if (scale=="date") {
 
-  data %>%
-    mutate(date=format(as.Date(date), "%Y-%m-%d")) %>%
-    arrange(date) -> data
+    # date format
+
+    data %>%
+      mutate(date=format(as.Date(date), "%Y-%m-%d")) %>%
+      arrange(date) -> data
+
+  }
 
   params = list(
     data=data,
@@ -120,7 +138,8 @@ streamgraph <- function(data,
     legend=FALSE,
     legend_label="",
     fill="brewer",
-    label_col="black"
+    label_col="black",
+    x_scale=scale
   )
 
   htmlwidgets::createWidget(
@@ -139,10 +158,15 @@ streamgraph <- function(data,
 #' streamgraph x axis.
 #'
 #' @param sg streamgraph object
-#' @param tick_interval interval between ticks, not tick count (defaults to \code{10} if source data is in years, otherwise \code{1})
-#' @param tick_units unit the ticks are in; d3 time scale unit specifier (defaults to \code{month})
-#' @param tick_format how to show the labels (subset of \code{strftime} formatters) (defaults to \code{\%b})
-#' @param show show vertical gridlines? (defaults to \code{FALSE})
+#' @param ticks when \code{scale} is \code{date}, \code{ticks} is the interval
+#'        between ticks. when \code{scale} is \code{continuous}, \code{ticks} is
+#'        the total number of ticks (i.e. "tick count") [defaults to \code{10}]
+#' @param tick_units unit the ticks are in; d3 time scale unit specifier
+#'        (defaults to \code{month} for \code{date} scale otherwise not used)
+#' @param tick_format how to show the labels (subset of \code{strftime}
+#'        formatters for \code{date} scale, otherwise \code{sprintf} formats for
+#'        \code{continuous} scale) (defaults to \code{\%b} - must specify if \code{continuous}).
+#'        See \href{D3 formatting}{https://github.com/mbostock/d3/wiki/Formatting} for more details.
 #' @return streamgraph object
 #' @export
 #' @examples \dontrun{

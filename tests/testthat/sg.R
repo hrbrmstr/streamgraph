@@ -17,11 +17,11 @@ ggplot2::movies %>%
 
 streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_axis_x(20, "year", "%Y") %>%
-  sg_colors("#1F77B4", "#1F77B4", "black") %>%
+  sg_colors(palette=NULL, "#1F77B4", "#1F77B4", "black") %>%
   sg_fill_tableau("tableau20") %>%
 #   sg_fill_manual(c("red", "#00ff00", rgb(0,0,1))) %>%
 #   sg_fill_brewer("Spectral") %>%
-  sg_legend(TRUE, "Genre")
+  sg_legend(TRUE, "Genre:")
 
 str(ggplot2::movies)
 
@@ -72,4 +72,23 @@ streamgraph(dat, "name", "n", "year") %>%
 
 
 babynames[babynames$name %in% dat1$name,]
+
+
+dat <- read.table(text="week variable    value
+    40     rev1  372.096
+    40     rev2  506.880
+    40     rev3 1411.200
+   40     rev4  198.528
+    40     rev5   60.800
+    43     rev1  342.912
+    43     rev2  501.120
+    43     rev3  132.352
+    43     rev4  267.712
+   43     rev5   82.368
+   44     rev1  357.504
+   44     rev2  466.560", header=TRUE)
+
+dat %>% streamgraph("variable","value","week", scale="continuous") %>% sg_axis_x(tick_format="d")
+
+
 
