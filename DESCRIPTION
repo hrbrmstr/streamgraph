@@ -21,8 +21,9 @@ Depends:
     R (>= 3.0.0),
     htmlwidgets,
     htmltools,
-    tidyr
 Imports:
     magrittr,
-    xts
+    xts,
+    tidyr,
+    dplyr
 VignetteBuilder: knitr

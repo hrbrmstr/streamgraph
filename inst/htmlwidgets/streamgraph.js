@@ -1,4 +1,4 @@
-var dbg, dbg2;
+var dbg, dbg2, dbg3, dbgs, dbgy, dbgx;
 
 HTMLWidgets.widget({
 
@@ -115,10 +115,15 @@ HTMLWidgets.widget({
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    dbgs = svg ;
+
     var layers = stack(nest.entries(data));
 
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([0, d3.max(data, function(d) { return d.y0 + d.y; })]);
+
+    dbgx = x ;
+    dbgy = y ;
 
     svg.selectAll(".layer")
     .data(layers)
@@ -256,9 +261,49 @@ HTMLWidgets.widget({
          .append('option')
            .text(function (d) { return d; })
            .attr("value", function (d) { return d; })
-      }
+    }
 
-    },
+    if (params.annotations != null) {
+
+       var ann = HTMLWidgets.dataframeToD3(params.annotations) ;
+       svg.selectAll(".annotation")
+          .data(ann)
+          .enter().append("text")
+          .attr("x", function(d) { return(x(d.x)) ; })
+          .attr("y", function(d) { return(y(d.y)) ; })
+          .attr("fill", function(d) { return(d.color) ; })
+          .style("font-size", function(d) { return(d.size+"px") ; })
+          .text(function(d) { return(d.label) ;})
+    }
+
+    if (params.markers != null) {
+
+       var mrk = HTMLWidgets.dataframeToD3(params.markers) ;
+       dbg3 = mrk ;
+       svg.selectAll(".marker")
+          .data(mrk)
+          .enter().append("line")
+          .attr("x1", function(d) { return(x(d.x)) ; })
+          .attr("x2", function(d) { return(x(d.x)) ; })
+          .attr("y1", function(d) { return(y.range()[0]) ; })
+          .attr("y2", function(d) { return(y.range()[1]) ; })
+          .attr("stroke-width", function(d) { return(d.stroke_width); })
+          .attr("stroke", function(d) { return(d.stroke); })
+          .attr("stroke-dasharray", "1");
+
+       svg.selectAll(".markerlab")
+          .data(mrk)
+          .enter().append("text")
+          .attr("x", function(d) { return(x(d.x)+d.space) ; })
+          .attr("y", function(d) { return(y(d.y)) ; })
+          .attr("fill", function(d) { return(d.color) ; })
+          .style("font-size", function(d) { return(d.size+"px") ; })
+          //.style("text-anchor", function(d) { return(d.align) ; })
+          .text(function(d) { return(d.label) ;})
+
+    }
+
+  },
 
   resize: function(el, width, height, instance) {
     if (instance.params)

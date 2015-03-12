@@ -88,7 +88,17 @@ dat <- read.table(text="week variable    value
    44     rev1  357.504
    44     rev2  466.560", header=TRUE)
 
-dat %>% streamgraph("variable","value","week", scale="continuous") %>% sg_axis_x(tick_format="d")
+dat %>%
+  streamgraph("variable","value","week", scale="continuous") %>%
+  sg_axis_x(tick_format="d") %>%
+  sg_fill_tableau() %>%
+#   sg_annotate(label="annotation", x=40.05, y=200, color="white", size=16) %>%
+#   sg_annotate(label="moar annotation", x=41, y=1500, color="black", size=24) %>%
+#   sg_annotate(label="last one", x=42, y=900, color="white", size=18) %>%
+  sg_add_marker(x=41, y=10, label="Hello There", stroke="#000000", color="#7f7f7f", size=16) %>%
+  sg_add_marker(x=42, y=10, label="Hello There", stroke="#000000", color="#7f7f7f", size=16) %>%
+  sg_add_marker(x=43, y=10, label="Hello There", stroke="#000000", color="#7f7f7f", size=16)
+
 
 
 

@@ -120,6 +120,8 @@ streamgraph <- function(data,
 
   params = list(
     data=data,
+    markers=NULL,
+    annotations=NULL,
     offset=offset,
     interactive=interactive,
     interpolate=interpolate,
@@ -422,6 +424,43 @@ sg_legend <- function(sg, show=FALSE, label="") {
   sg
 
 }
+
+#' Add a vertical marker (with optional label) to streamgraph
+#'
+#' @export
+sg_add_marker <- function(sg, x, stroke_width=0.5, stroke="#7f7f7f", space=5,
+                          y=0, label="", color="#7f7f7f", size=12) {
+
+  mark <- data.frame(x=x, y=y, label=label, color=color, stroke_width=stroke_width, stroke=stroke,
+                     space=space, size=size, stringsAsFactors=FALSE)
+
+  if (is.null(sg$x$markers)) {
+    sg$x$markers <- mark
+  } else {
+    sg$x$markers <- bind_rows(mark, sg$x$markers)
+  }
+
+  sg
+
+}
+
+#' Add text annotation to streamgraph
+#'
+#' @export
+sg_annotate <- function(sg, label, x, y, color="black", size="12") {
+
+  ann <- data.frame(label=label, x=x, y=y, color=color, size=size, stringsAsFactors=FALSE)
+
+  if (is.null(sg$x$annotations)) {
+    sg$x$annotations <- ann
+  } else {
+    sg$x$annotations <- bind_rows(ann, sg$x$annotations)
+  }
+
+  sg
+
+}
+
 
 #' Widget output function for use in Shiny
 #'
