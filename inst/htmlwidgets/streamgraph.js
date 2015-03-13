@@ -266,6 +266,15 @@ HTMLWidgets.widget({
     if (params.annotations != null) {
 
        var ann = HTMLWidgets.dataframeToD3(params.annotations) ;
+
+       ann.forEach(function(d) {
+         if (params.x_scale == "date") {
+           d.x = format.parse(d.x);
+         } else {
+           d.x = +d.x;
+         }
+       });
+
        svg.selectAll(".annotation")
           .data(ann)
           .enter().append("text")
@@ -279,6 +288,15 @@ HTMLWidgets.widget({
     if (params.markers != null) {
 
        var mrk = HTMLWidgets.dataframeToD3(params.markers) ;
+
+       mrk.forEach(function(d) {
+         if (params.x_scale == "date") {
+           d.x = format.parse(d.x);
+         } else {
+           d.x = +d.x;
+         }
+       });
+
        dbg3 = mrk ;
        svg.selectAll(".marker")
           .data(mrk)
@@ -294,11 +312,15 @@ HTMLWidgets.widget({
        svg.selectAll(".markerlab")
           .data(mrk)
           .enter().append("text")
-          .attr("x", function(d) { return(x(d.x)+d.space) ; })
+          .attr("x", function(d) {
+            if (d.anchor=="end") { d.space = -d.space; }
+            if (d.anchor=="middle") { d.space = 0; }
+            return(x(d.x)+d.space) ;
+          })
           .attr("y", function(d) { return(y(d.y)) ; })
           .attr("fill", function(d) { return(d.color) ; })
           .style("font-size", function(d) { return(d.size+"px") ; })
-          //.style("text-anchor", function(d) { return(d.align) ; })
+          .style("text-anchor", function(d) { return(d.anchor) ; })
           .text(function(d) { return(d.label) ;})
 
     }
