@@ -23,6 +23,8 @@ The following functions are implemented:
 -   `sg_fill_brewer` : Specify a ColorBrewer palette to use for the stream fills
 -   `sg_fill_manual` : Specify a manual color palette to use for the stream fills
 -   `sg_fill_tableau` : Specify a Tableau color palette to use for the stream flls
+-   `sg_add_marker` : Annotate streamgraph with vertical line and label
+-   `sg_annotate` : Annotate streamgraph with a label
 
 ### News
 
@@ -38,6 +40,7 @@ The following functions are implemented:
 -   Version `0.5` released - deprecated use of `sg_colors`. Its functionality will change soon and is replaced by three `sg_fill_*` functions (`brewer`, `manual` and `tableau`) which makes more sense, is aligned to the `ggplot2` way of specifying fill aesthetics and now makes it easier to highly customize the streamgraph appearance.
 -   Version `0.5.1` released - `sg_colors` now has nothing to do with the stream fills but *does* set the axis text, legend popup label text and tooltip text.
 -   Version `0.6` released - New `scale` parameter to `streamgraph` lets you choose between continuous or date scales.
+-   Version `0.7` released - New `sg_add_marker` and `sg_annotation` to enable annotation of streamgraphs
 
 ### Installation
 
@@ -74,7 +77,6 @@ library(streamgraph)
 
     ## Loading required package: htmlwidgets
     ## Loading required package: htmltools
-    ## Loading required package: tidyr
 
 ``` r
 library(testthat)
@@ -82,7 +84,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sat Mar  7 12:45:54 2015"
+    ## [1] "Thu Mar 12 21:00:31 2015"
 
 ``` r
 test_dir("tests/")
