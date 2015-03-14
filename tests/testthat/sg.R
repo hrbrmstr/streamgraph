@@ -15,6 +15,14 @@ ggplot2::movies %>%
   group_by(year, genre) %>%
   tally(wt=value) -> dat
 
+streamgraph(dat, genre, n, year, interactive=TRUE) %>%
+  sg_axis_x(20, "year", "%Y") %>%
+  sg_colors(palette=NULL, "#1F77B4", "#1F77B4", "black") %>%
+  sg_fill_tableau("tableau20") %>%
+  #   sg_fill_manual(c("red", "#00ff00", rgb(0,0,1))) %>%
+  #   sg_fill_brewer("Spectral") %>%
+  sg_legend(TRUE, "Genre:")
+
 streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_axis_x(20, "year", "%Y") %>%
   sg_colors(palette=NULL, "#1F77B4", "#1F77B4", "black") %>%

@@ -35,12 +35,13 @@ The following functions are implemented:
 -   Version `0.3` released - folks can have some fun with new `offset` and `interpolate` parameters to `streamgraph`
 -   Version `0.3.1` released - bug fix to fix error with `d3.stack`; `streamgraph` will now see if the date input is a year and automatically convert it to the necessary format (no need to use `as.Date`)
 -   Version `0.4` released - select menu "legend" (interactive only)
--   Version `0.4.1` released - removed warning message when supplyign `POSIXct` values (remember, `POSIXct` still only works for granularities \>= 1 day)
+-   Version `0.4.1` released - removed warning message when supplying `POSIXct` values (remember, `POSIXct` still only works for granularities \>= 1 day)
 -   Versioin `0.4.2` released - fixed bug (thanks to teammate @bhaskarvk) that causes inconsistent color rendering for each area component (noticeable on resize of flexible width/height graphs)
 -   Version `0.5` released - deprecated use of `sg_colors`. Its functionality will change soon and is replaced by three `sg_fill_*` functions (`brewer`, `manual` and `tableau`) which makes more sense, is aligned to the `ggplot2` way of specifying fill aesthetics and now makes it easier to highly customize the streamgraph appearance.
 -   Version `0.5.1` released - `sg_colors` now has nothing to do with the stream fills but *does* set the axis text, legend popup label text and tooltip text.
 -   Version `0.6` released - New `scale` parameter to `streamgraph` lets you choose between continuous or date scales.
 -   Version `0.7` released - New `sg_add_marker` and `sg_annotation` to enable annotation of streamgraphs
+-   Version `0.7.5` released - `key`, `value` and `date` can be either bare or quoted
 
 ### Installation
 
@@ -84,7 +85,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Thu Mar 12 21:00:31 2015"
+    ## [1] "Sat Mar 14 13:26:44 2015"
 
 ``` r
 test_dir("tests/")
