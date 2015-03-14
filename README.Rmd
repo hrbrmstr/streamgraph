@@ -54,6 +54,7 @@ The following functions are implemented:
 - Version `0.5.1` released - `sg_colors` now has nothing to do with the stream fills but _does_ set the axis text, legend popup label text and tooltip text.
 - Version `0.6` released - New `scale` parameter to `streamgraph` lets you choose between continuous or date scales. 
 - Version `0.7` released - New `sg_add_marker` and `sg_annotation` to enable annotation of streamgraphs
+- Version `0.7.5` released - `key`, `value` and `date` can be either bare or quoted
 
 ### Installation
 

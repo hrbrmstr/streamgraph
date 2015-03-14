@@ -10,9 +10,9 @@
 #' the \code{interactve} parameter to \code{FALSE}.
 #'
 #' @param data data frame
-#' @param key name of the category column (defaults to \code{key})
-#' @param value name of the value column (defaults to \code{value})
-#' @param date name of the date column (defaults to \code{date})
+#' @param key bare or quoted name of the category column (defaults to \code{key})
+#' @param value bare or quoted name of the value column (defaults to \code{value})
+#' @param date bare or quoted name of the date column (defaults to \code{date})
 #' @param width Width in pixels (optional, defaults to automatic sizing)
 #' @param height Height in pixels (optional, defaults to automatic sizing)
 #' @param offset see d3's \href{https://github.com/mbostock/d3/wiki/Stack-Layout#offset}{offset layout} for more details.
@@ -46,9 +46,9 @@
 #' streamgraph(dat, "genre", "n", "year")
 #' }
 streamgraph <- function(data,
-                        key="key",
-                        value="value",
-                        date="date",
+                        key,
+                        value,
+                        date,
                         width=NULL, height=NULL,
                         offset="silhouette",
                         interpolate="cardinal",
@@ -69,6 +69,27 @@ streamgraph <- function(data,
                            "cardinal-open", "monotone"))) {
     warning("'interpolate' does not have a valid value, defaulting to 'cardinal'")
     interpolate <- "cardinal"
+  }
+
+  if (!missing(key)) {
+    key <- substitute(key)
+    if (inherits(key, "name")) { key <- as.character(key) }
+  } else {
+    key <- "key"
+  }
+
+  if (!missing(value)) {
+    value <- substitute(value)
+    if (inherits(value, "name")) { value <- as.character(value) }
+  } else {
+    value <- "value"
+  }
+
+  if (!missing(date)) {
+    date <- substitute(date)
+    if (inherits(date, "name")) { date <- as.character(date) }
+  } else {
+    date <- "date"
   }
 
   data <- data.frame(data)
