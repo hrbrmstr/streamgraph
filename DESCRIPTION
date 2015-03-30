@@ -20,7 +20,7 @@ Suggests:
 Depends:
     R (>= 3.0.0),
     htmlwidgets,
-    htmltools,
+    htmltools
 Imports:
     magrittr,
     xts,
