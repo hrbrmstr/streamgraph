@@ -3,7 +3,6 @@
 #' @param p htmlwidget object
 #' @param thumbPath where to save thumbnail file
 #' @export
-#' @importFrom htmlwidgets saveWidget
 widgetThumbnail <- function(p, thumbPath) {
   phantom <- findPhantom()
   thumbPath <- path.expand(thumbPath)
