@@ -24,7 +24,7 @@ Even though streamgraphs can be controversial^[Kirk. http://www.visualisingdata.
 
 ## Making a streamgraph
 
-The first example replicates the streamgraphs in the Name Voyager^[http://www.bewitched.com/namevoyager.html] project. We'll use the R `babynames` package^[Wickham. http://cran.r-project.org/web/packages/babynames/index.html] as the data source and use the `streamgraph` package to see the ebb & flow of "`Kr-`" and "`I-`" names in the United States over the years (1880-2013).
+The first example replicates the streamgraphs in the Name Voyager^[http://www.bewitched.com/namevoyager.html] project. We'll use the R `babynames` package^[Wickham. http://cran.r-project.org/package=babynames] as the data source and use the `streamgraph` package to see the ebb & flow of "`Kr-`" and "`I-`" names in the United States over the years (1880-2013).
 
 ```{r krbabies, message=FALSE, fig.width=7.5, fig.cap="'Kr-' names (1880-2013)"}
 library(dplyr)
