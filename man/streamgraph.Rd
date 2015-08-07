@@ -4,19 +4,18 @@
 \alias{streamgraph}
 \title{Create a new streamgraph}
 \usage{
-streamgraph(data, key = "key", value = "value", date = "date",
-  width = NULL, height = NULL, offset = "silhouette",
-  interpolate = "cardinal", interactive = TRUE, scale = "date",
-  top = 20, right = 40, bottom = 30, left = 50)
+streamgraph(data, key, value, date, width = NULL, height = NULL,
+  offset = "silhouette", interpolate = "cardinal", interactive = TRUE,
+  scale = "date", top = 20, right = 40, bottom = 30, left = 50)
 }
 \arguments{
 \item{data}{data frame}
 
-\item{key}{name of the category column (defaults to \code{key})}
+\item{key}{bare or quoted name of the category column (defaults to \code{key})}
 
-\item{value}{name of the value column (defaults to \code{value})}
+\item{value}{bare or quoted name of the value column (defaults to \code{value})}
 
-\item{date}{name of the date column (defaults to \code{date})}
+\item{date}{bare or quoted name of the date column (defaults to \code{date})}
 
 \item{width}{Width in pixels (optional, defaults to automatic sizing)}
 

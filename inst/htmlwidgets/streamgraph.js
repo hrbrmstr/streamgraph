@@ -100,14 +100,16 @@ HTMLWidgets.widget({
       .x(function(d) { return d.date; })
       .y(function(d) { return d.value; });
 
+    dbg_stack = stack ;
+
     var nest = d3.nest()
-      .key(function(d) { return d.key; });
+                 .key(function(d) { return d.key; });
 
     var area = d3.svg.area()
-      .interpolate(params.interpolate)
-      .x(function(d) { return x(d.date); })
-      .y0(function(d) { return y(d.y0); })
-      .y1(function(d) { return y(d.y0 + d.y); });
+                 .interpolate(params.interpolate)
+                 .x(function(d) { return x(d.date); })
+                 .y0(function(d) { return y(d.y0); })
+                 .y1(function(d) { return y(d.y0 + d.y); });
 
     // build the final svg
 
@@ -119,20 +121,27 @@ HTMLWidgets.widget({
 
     dbgs = svg ;
 
+    dbg_nest = nest.entries(data) ;
+
     var layers = stack(nest.entries(data));
 
     x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain([0, d3.max(data, function(d) { return d.y0 + d.y; })]);
+
+    // experimental support for negative y axis
+
+    var y_min = d3.min(data, function(d) { return d.y0 + d.y; });
+    if (y_min > 0) { y_min = 0; }
+    y.domain([y_min, d3.max(data, function(d) { return d.y0 + d.y; })]);
 
     dbgx = x ;
     dbgy = y ;
 
     svg.selectAll(".layer")
-    .data(layers)
-    .enter().append("path")
-    .attr("class", "layer")
-    .attr("d", function(d) { return area(d.values); })
-    .style("fill", function(d, i) { return z(d.key); });
+       .data(layers)
+       .enter().append("path")
+       .attr("class", "layer")
+       .attr("d", function(d) { return area(d.values); })
+       .style("fill", function(d, i) { return z(d.key); });
 
     // TODO legends for non-interactive
     // TODO add tracker vertical line
@@ -152,6 +161,8 @@ HTMLWidgets.widget({
           return j != i ? opacity : 1;
         })})
 
+      // track mouse, figure out value, update tooltip
+
       .on("mousemove", function(dd, i) {
 
         d3.select("#" + el.id + "-select")
@@ -169,7 +180,7 @@ HTMLWidgets.widget({
         var x0 = x.invert(d3.mouse(this)[0]),
             j = bisectDate(subset, x0, 1),
             d0 = subset[j - 1],
-            d1 = subset[i],
+            d1 = subset[j],
             d = x0 - d0.date > d1.date - x0 ? d1 : d0;
 
         d3.select(this)
@@ -180,6 +191,8 @@ HTMLWidgets.widget({
         tooltip.text(dd.key + ": " + d.value).attr("fill", params.tooltip);
 
       })
+
+      // restore opacity/clear tooltip/etc on mouseout
 
       .on("mouseout", function(d, i) {
 

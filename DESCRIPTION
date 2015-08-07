@@ -1,8 +1,8 @@
 Package: streamgraph
 Type: Package
 Title: streamgraph is an htmlwidget for building streamgraph visualizations
-Version: 0.7
-Date: 2015-03-12
+Version: 0.8.0
+Date: 2015-08-07
 Author: Bob Rudis (@hrbrmstr)
 Maintainer: Bob Rudis <bob@rudis.net>
 Description: A streamgraph (or "stream graph") is a type of stacked area graph
@@ -19,9 +19,9 @@ Suggests:
     knitr
 Depends:
     R (>= 3.0.0),
-    htmlwidgets,
-    htmltools
 Imports:
+    htmlwidgets,
+    htmltools,
     magrittr,
     xts,
     tidyr,

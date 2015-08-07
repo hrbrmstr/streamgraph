@@ -7,7 +7,7 @@ output: html_document
 
 [GitHub repo](http://github.com/hrbrmstr/streamgraph)
 
-```{r fig.width=10, message=FALSE}
+```{r movies, fig.width=10, message=FALSE}
 library(streamgraph)
 library(dplyr)
 library(babynames)
@@ -24,7 +24,7 @@ streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
   sg_fill_brewer("PuOr")
 ```
 
-```{r fig.width=10}
+```{r WillTurman, fig.width=10}
 data <- read.csv("http://bl.ocks.org/WillTurman/raw/4631136/data.csv", stringsAsFactors=FALSE)
 data$date <- as.Date(data$date, format="%m/%d/%y")
 
