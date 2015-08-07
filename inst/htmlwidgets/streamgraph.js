@@ -7,7 +7,7 @@ HTMLWidgets.widget({
   type: 'output',
 
   initialize: function(el, width, height) {
-    return { }
+    return { };
   },
 
   renderValue: function(el, params, instance) {
@@ -37,7 +37,7 @@ HTMLWidgets.widget({
       d.value = +d.value;
     });
 
-    dbg2 = data
+    dbg2 = data;
 
     // assign colors
 
@@ -48,7 +48,7 @@ HTMLWidgets.widget({
     var ncols = d3.map(data, function(d) { return(d.key) }).keys().length;
 
     if (params.fill == "brewer") {
-      if (ncols > 9) ncols = 9
+      if (ncols > 9) ncols = 9;
       colorrange = colorbrewer[params.palette][ncols];
     } else if (params.fill == "manual") {
       colorrange = params.palette;
@@ -79,10 +79,10 @@ HTMLWidgets.widget({
 
     if (params.x_scale == "continuous") {
       xAxis = xAxis.ticks(params.x_tick_interval)
-                   .tickFormat(d3.format(params.x_tick_format))
+                   .tickFormat(d3.format(params.x_tick_format));
     } else {
       xAxis = xAxis.ticks(d3.time[params.x_tick_units], params.x_tick_interval)
-                   .tickFormat(d3.time.format(params.x_tick_format))
+                   .tickFormat(d3.time.format(params.x_tick_format));
     }
 
     var yAxis = d3.svg.axis().scale(y)
@@ -98,14 +98,16 @@ HTMLWidgets.widget({
       .x(function(d) { return d.date; })
       .y(function(d) { return d.value; });
 
+    dbg_stack = stack ;
+
     var nest = d3.nest()
-      .key(function(d) { return d.key; });
+                 .key(function(d) { return d.key; });
 
     var area = d3.svg.area()
-      .interpolate(params.interpolate)
-      .x(function(d) { return x(d.date); })
-      .y0(function(d) { return y(d.y0); })
-      .y1(function(d) { return y(d.y0 + d.y); });
+                 .interpolate(params.interpolate)
+                 .x(function(d) { return x(d.date); })
+                 .y0(function(d) { return y(d.y0); })
+                 .y1(function(d) { return y(d.y0 + d.y); });
 
     // build the final svg
 
@@ -117,20 +119,27 @@ HTMLWidgets.widget({
 
     dbgs = svg ;
 
+    dbg_nest = nest.entries(data) ;
+
     var layers = stack(nest.entries(data));
 
     x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain([0, d3.max(data, function(d) { return d.y0 + d.y; })]);
+
+    // experimental support for negative y axis
+
+    var y_min = d3.min(data, function(d) { return d.y0 + d.y; });
+    if (y_min > 0) { y_min = 0; }
+    y.domain([y_min, d3.max(data, function(d) { return d.y0 + d.y; })]);
 
     dbgx = x ;
     dbgy = y ;
 
     svg.selectAll(".layer")
-    .data(layers)
-    .enter().append("path")
-    .attr("class", "layer")
-    .attr("d", function(d) { return area(d.values); })
-    .style("fill", function(d, i) { return z(d.key); });
+       .data(layers)
+       .enter().append("path")
+       .attr("class", "layer")
+       .attr("d", function(d) { return area(d.values); })
+       .style("fill", function(d, i) { return z(d.key); });
 
     // TODO legends for non-interactive
     // TODO add tracker vertical line
@@ -150,34 +159,38 @@ HTMLWidgets.widget({
           return j != i ? opacity : 1;
         })})
 
+      // track mouse, figure out value, update tooltip
+
       .on("mousemove", function(dd, i) {
 
         d3.select("#" + el.id + "-select")
         .selectAll("option")
-        .attr("selected", function(d, i) { if (i==0) { return("selected") } })
+        .attr("selected", function(d, i) { if (i===0) { return("selected") } });
 
         function iskey(key) {
           return(function(element) {
-            return(element.key==key)
-          })
+            return(element.key==key);
+          });
         }
 
         var subset = data.filter(iskey(dd.key));
 
         var x0 = x.invert(d3.mouse(this)[0]),
-            i = bisectDate(subset, x0, 1),
-            d0 = subset[i - 1],
-            d1 = subset[i],
+            j = bisectDate(subset, x0, 1),
+            d0 = subset[j - 1],
+            d1 = subset[j],
             d = x0 - d0.date > d1.date - x0 ? d1 : d0;
 
         d3.select(this)
         .classed("hover", true)
         .attr("stroke", strokecolor)
-        .attr("stroke-width", "0.5px")
+        .attr("stroke-width", "0.5px");
 
         tooltip.text(dd.key + ": " + d.value).attr("fill", params.tooltip);
 
       })
+
+      // restore opacity/clear tooltip/etc on mouseout
 
       .on("mouseout", function(d, i) {
 
@@ -188,11 +201,11 @@ HTMLWidgets.widget({
 
         d3.select(this)
         .classed("hover", false)
-        .attr("stroke-width", "0px")
+        .attr("stroke-width", "0px");
 
-        tooltip.text("")
+        tooltip.text("");
 
-      })
+      });
     }
 
     svg.append("g")
@@ -219,7 +232,7 @@ HTMLWidgets.widget({
         .duration(250)
         .attr("opacity", "1")
         .classed("hover", false)
-        .attr("stroke-width", "0px")
+        .attr("stroke-width", "0px");
 
       } else {
 
@@ -235,35 +248,35 @@ HTMLWidgets.widget({
           .attr("stroke", strokecolor)
           .attr("stroke-width", function(d) {
             return d.key != selected_value ? "0px" : "0.5px";
-          })
+          });
       }
 
-    };
+    }
 
     if (params.legend && params.interactive) {
 
-      if (params.legend_label != "") {
+      if (params.legend_label !== "") {
         d3.select("#" + el.id + "-legend label")
           .text(params.legend_label)
-          .style("color", params.label_col)
+          .style("color", params.label_col);
       }
 
       var select = d3.select("#" + el.id + "-select")
           .style("visibility", "visible")
-          .on('change', onselchange)
+          .on('change', onselchange);
 
-      var selopts = d3.set(data.map(function(d) { return(d.key) })).values()
-      selopts.unshift("--- Select ---")
+      var selopts = d3.set(data.map(function(d) { return(d.key) })).values();
+      selopts.unshift("--- Select ---");
 
       var options = d3.select("#" + el.id + "-select")
          .selectAll('option')
          .data(selopts).enter()
          .append('option')
            .text(function (d) { return d; })
-           .attr("value", function (d) { return d; })
+           .attr("value", function (d) { return d; });
     }
 
-    if (params.annotations != null) {
+    if (params.annotations !== null) {
 
        var ann = HTMLWidgets.dataframeToD3(params.annotations) ;
 
@@ -282,10 +295,10 @@ HTMLWidgets.widget({
           .attr("y", function(d) { return(y(d.y)) ; })
           .attr("fill", function(d) { return(d.color) ; })
           .style("font-size", function(d) { return(d.size+"px") ; })
-          .text(function(d) { return(d.label) ;})
+          .text(function(d) { return(d.label) ;});
     }
 
-    if (params.markers != null) {
+    if (params.markers !== null) {
 
        var mrk = HTMLWidgets.dataframeToD3(params.markers) ;
 
@@ -321,7 +334,7 @@ HTMLWidgets.widget({
           .attr("fill", function(d) { return(d.color) ; })
           .style("font-size", function(d) { return(d.size+"px") ; })
           .style("text-anchor", function(d) { return(d.anchor) ; })
-          .text(function(d) { return(d.label) ;})
+          .text(function(d) { return(d.label) ;});
 
     }
 
