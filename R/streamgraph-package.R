@@ -3,7 +3,7 @@
 #' @docType package
 #' @author Bob Rudis (@@hrbrmstr)
 #' @import htmlwidgets htmltools xts
-#' @importFrom dplyr bind_rows left_join mutate select
+#' @importFrom dplyr bind_rows arrange left_join mutate select
 NULL
 
 
