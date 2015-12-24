@@ -2,21 +2,24 @@ Package: streamgraph
 Type: Package
 Title: streamgraph is an htmlwidget for building streamgraph visualizations
 Version: 0.8.1
-Date: 2015-08-07
+Date: 2015-12-24
 Author: Bob Rudis (@hrbrmstr)
 Maintainer: Bob Rudis <bob@rudis.net>
 Description: A streamgraph (or "stream graph") is a type of stacked area graph
-             which is displaced around a central axis, resulting in a flowing,
-             organic shape. Streamgraphs were developed by Lee Byron and popularized
-             by their use in a February 2008 New York Times article on movie
-             box office revenues. [Wikipedia] The streamgraph package is based on
-             the htmlwidget package and uses D3.js to render the visualizations.
+    which is displaced around a central axis, resulting in a flowing,
+    organic shape. Streamgraphs were developed by Lee Byron and popularized
+    by their use in a February 2008 New York Times article on movie
+    box office revenues. [Wikipedia] The streamgraph package is based on
+    the htmlwidget package and uses D3.js to render the visualizations.
 URL: http://github.com/hrbrmstr/streamgraph
 BugReports: https://github.com/hrbrmstr/streamgraph/issues
 License: MIT + file LICENSE
 Suggests:
     testthat,
-    knitr
+    knitr,
+    babynames,
+    ggplot2movies
+Encoding: UTF-8
 Depends:
     R (>= 3.0.0),
 Imports:
@@ -27,3 +30,4 @@ Imports:
     tidyr,
     dplyr
 VignetteBuilder: knitr
+RoxygenNote: 5.0.1

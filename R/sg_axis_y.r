@@ -11,7 +11,7 @@
 #' @examples \dontrun{
 #' library(dplyr)
 #' library(streamgraph)
-#' ggplot2::movies %>%
+#' ggplot2movies::movies %>%
 #' select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
 #'   tidyr::gather(genre, value, -year) %>%
 #'   group_by(year, genre) %>%

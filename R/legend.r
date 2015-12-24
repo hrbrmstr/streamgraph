@@ -7,6 +7,7 @@
 #'
 #' TODO: legends for non-interactive streamgraphs
 #'
+#' @param sg streamgraph object
 #' @param show if this is \code{TRUE} and \code{interactive} is \code{TRUE} then a popup menu
 #'        will be available that lists ll the keys in the data set. Selecting a key will
 #'        perform the same action as hovering over the area with the mouse.
@@ -15,7 +16,7 @@
 #' @examples \dontrun{
 #' library(dplyr)
 #' library(streamgraph)
-#' ggplot2::movies %>%
+#' ggplot2movies::movies %>%
 #' select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
 #'   tidyr::gather(genre, value, -year) %>%
 #'   group_by(year, genre) %>%

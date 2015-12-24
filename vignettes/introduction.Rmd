@@ -63,7 +63,7 @@ This example changes the baseline for the `streamgraph` to `0` and uses a linear
 The data to use for a `streamgraph` should be in "long format"^[http://blog.rstudio.org/2014/07/22/introducing-tidyr/]. The following example shows how to produce a `streamgraph` from the `ggplot2` `movies` data set.
 
 ```{r movies, message=FALSE, fig.width=7.5, fig.cap="Count of movie genres over time"}
-ggplot2::movies %>%
+ggplot2movies::movies %>%
   select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
   tidyr::gather(genre, value, -year) %>%
   group_by(year, genre) %>%

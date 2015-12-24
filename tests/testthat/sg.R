@@ -9,7 +9,7 @@ sg <- streamgraph(dat, "victim", "value", "week", interactive=TRUE)
 
 sg %>% sg_axis_x(1) %>% sg_axis_y(0) %>% sg_colors("PuOr")
 
-ggplot2::movies %>%
+ggplot2movies::movies %>%
   select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
   tidyr::gather(genre, value, -year) %>%
   group_by(year, genre) %>%
@@ -31,7 +31,7 @@ streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
 #   sg_fill_brewer("Spectral") %>%
   sg_legend(TRUE, "Genre:")
 
-str(ggplot2::movies)
+str(ggplot2movies::movies)
 
 dat <- read.csv("http://bl.ocks.org/mbostock/raw/1134768/crimea.csv")
 dat %>%
@@ -42,7 +42,7 @@ streamgraph(dat, "deaths", "count", offset="zero") %>%
   sg_axis_x(tick_interval = 3, tick_format = "%b %y")
 
 
-ggplot2::movies %>%
+ggplot2movies::movies %>%
   select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
   tidyr::gather(genre, value, -year) %>%
   group_by(year, genre) %>%

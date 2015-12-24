@@ -12,7 +12,7 @@
 #' @examples \dontrun{
 #' library(dplyr)
 #' library(streamgraph)
-#' ggplot2::movies %>%
+#' ggplot2movies::movies %>%
 #' select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
 #'   tidyr::gather(genre, value, -year) %>%
 #'   group_by(year, genre) %>%
@@ -49,7 +49,7 @@ sg_colors <- function(sg, palette=NULL, axis_color="black", tooltip_color="black
 #' @examples \dontrun{
 #' library(dplyr)
 #' library(streamgraph)
-#' ggplot2::movies %>%
+#' ggplot2movies::movies %>%
 #' select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
 #'   tidyr::gather(genre, value, -year) %>%
 #'   group_by(year, genre) %>%
@@ -82,7 +82,7 @@ sg_fill_brewer <- function(sg, palette="Spectral") {
 #' @examples \dontrun{
 #' library(dplyr)
 #' library(streamgraph)
-#' ggplot2::movies %>%
+#' ggplot2movies::movies %>%
 #' select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
 #'   tidyr::gather(genre, value, -year) %>%
 #'   group_by(year, genre) %>%
@@ -125,7 +125,7 @@ sg_fill_tableau<- function(sg, palette="tableau20") {
 #' @examples \dontrun{
 #' library(dplyr)
 #' library(streamgraph)
-#' ggplot2::movies %>%
+#' ggplot2movies::movies %>%
 #' select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
 #'   tidyr::gather(genre, value, -year) %>%
 #'   group_by(year, genre) %>%
@@ -134,7 +134,7 @@ sg_fill_tableau<- function(sg, palette="tableau20") {
 #'   mutate(year=as.Date(sprintf("%d-01-01", year))) -> dat
 #'
 #' streamgraph(dat, "genre", "n", "year") %>%
-#'   sg_fill_manual(c("black", "#ffa500", "blue", "white", "#00ff00', "red"))
+#'   sg_fill_manual(c("black", "#ffa500", "blue", "white", "#00ff00", "red"))
 #' }
 sg_fill_manual <- function(sg, values=NULL) {
 

@@ -35,7 +35,7 @@
 #' @examples \dontrun{
 #' library(dplyr)
 #' library(streamgraph)
-#' ggplot2::movies %>%
+#' ggplot2movies::movies %>%
 #' select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
 #'   tidyr::gather(genre, value, -year) %>%
 #'   group_by(year, genre) %>%
@@ -177,6 +177,7 @@ streamgraph <- function(data,
 
 #' Add a title to the streamgraph
 #'
+#' @param sg streamgraph object
 #' @param title title
 #' @return THIS DOES NOT RETURN AN \code{htmlwidget}!! It returns a \code{shiny.tag}
 #'         class HTML (the widget is wrapped in a \code{<div>}). It should be the LAST

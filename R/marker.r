@@ -3,6 +3,7 @@
 #'
 #' This is useful for marking/labeling notable events along the streams.
 #'
+#' @param sg streamgraph object
 #' @param x horizontal position
 #' @param label text for the annotation
 #' @param stroke_width line width

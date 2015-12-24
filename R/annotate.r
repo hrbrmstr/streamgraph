@@ -1,3 +1,4 @@
+. <- NULL
 
 #' Add text annotation to streamgraph
 #'
@@ -5,6 +6,7 @@
 #' is especially useful for non-interactive streamgraphs (i.e. to label
 #' a particular stream).
 #'
+#' @param sg streamgraph object
 #' @param label text for the annotation
 #' @param x horizontal position
 #' @param y vertical position

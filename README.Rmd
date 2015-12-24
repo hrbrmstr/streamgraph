@@ -1,13 +1,13 @@
 ---
-title: "README"
-author: "Bob Rudis"
-date: August 7, 2015
+title: "streamgraph"
 output:
+  html_document:
+    keep_md: true
   md_document:
     variant: markdown_github
 ---
 
-streamgraph is an htmlwidget for making streamgraphs. 
+streamgraph is an htmlwidget for making, well, _streamgraphs_. 
 
 ![example](example.png)
 
@@ -41,6 +41,7 @@ The following functions are implemented:
 
 ### News
 
+- Version `0.8.1` released - ggplot2 movies fix; corrected numerous notes from CRAN check
 - Version `0.8` released - support for negative Y axis numbers and upgrade to latest D3
 - Version `0.7.5` released - `key`, `value` and `date` can be either bare or quoted
 - Version `0.7` released - New `sg_add_marker` and `sg_annotation` to enable annotation of streamgraphs
@@ -77,7 +78,7 @@ packageVersion("streamgraph")
 
 library(dplyr)
 
-ggplot2::movies %>%
+ggplot2movies::movies %>%
   select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
   tidyr::gather(genre, value, -year) %>%
   group_by(year, genre) %>%
@@ -89,14 +90,6 @@ streamgraph(dat, "genre", "n", "year", interactive=TRUE) %>%
 
 ```
 
-### Test Results
+---------------
 
-```{r}
-library(streamgraph)
-library(testthat)
-
-date()
-
-test_dir("tests/")
-```
-
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.

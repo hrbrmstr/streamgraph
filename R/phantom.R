@@ -8,7 +8,7 @@ widgetThumbnail <- function(p, thumbPath) {
   thumbPath <- path.expand(thumbPath)
 
   if(phantom == "") {
-    message("** phantomjs dependency could not be found - thumbnail cannot be generated (run phantomInstall() for details)")
+    message("** phantomjs dependency could not be found - thumbnail cannot be generated\n  (Please visit this page to install phantomjs on your system: http://phantomjs.org/download.html)")
   } else {
     res <- try({
       ff <- tempfile(fileext = ".html")
@@ -36,10 +36,6 @@ page.open('file://", ff, "', function() {
   }
 }
 
-#' @export
-phantomInstall <- function() {
-  message("Please visit this page to install phantomjs on your system: http://phantomjs.org/download.html")
-}
 
 # similar to webshot
 findPhantom <- function() {

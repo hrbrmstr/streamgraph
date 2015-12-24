@@ -1,8 +1,10 @@
 ---
-title: "streamgraph 0.5"
-author: '@hrbrmstr'
-date: "February 16, 2015"
-output: html_document
+title: "streamgraph"
+output:
+  html_document:
+    keep_md: true
+  md_document:
+    variant: markdown_github
 ---
 
 [GitHub repo](http://github.com/hrbrmstr/streamgraph)
@@ -13,7 +15,7 @@ library(dplyr)
 library(babynames)
 library(DT)
 
-ggplot2::movies %>%
+ggplot2movies::movies %>%
   select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
   tidyr::gather(genre, value, -year) %>%
   group_by(year, genre) %>%

@@ -6,3 +6,7 @@ README\.Rmd
 streamgraph\.Rmd
 streamgraph\.html
 ^\.example.png$
+^CONDUCT\.md$
+^README\.html$
+example\.png$
+streamgraph\.md$

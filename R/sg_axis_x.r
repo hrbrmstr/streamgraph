@@ -4,10 +4,8 @@
 #' streamgraph x axis.
 #'
 #' @param sg streamgraph object
-#' @param ticks when \code{scale} is \code{date}, \code{ticks} is the interval
-#'        between ticks. when \code{scale} is \code{continuous}, \code{ticks} is
-#'        the total number of ticks (i.e. "tick count") [defaults to \code{10}]
 #' @param tick_interval tick interval
+#' @param tick_units units for the ticks
 #' @param tick_format how to show the labels (subset of \code{strftime}
 #'        formatters for \code{date} scale, otherwise \code{sprintf} formats for
 #'        \code{continuous} scale) (defaults to \code{\%b} - must specify if \code{continuous}).
@@ -17,7 +15,7 @@
 #' @examples \dontrun{
 #' library(dplyr)
 #' library(streamgraph)
-#' ggplot2::movies %>%
+#' ggplot2movies::movies %>%
 #' select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%
 #'   tidyr::gather(genre, value, -year) %>%
 #'   group_by(year, genre) %>%
