@@ -1,7 +1,7 @@
 Package: streamgraph
 Type: Package
 Title: streamgraph is an htmlwidget for building streamgraph visualizations
-Version: 0.8.0
+Version: 0.8.1
 Date: 2015-08-07
 Author: Bob Rudis (@hrbrmstr)
 Maintainer: Bob Rudis <bob@rudis.net>
