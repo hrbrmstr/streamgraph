@@ -7,7 +7,7 @@
 #' columns if they aren't named as such in your data.\cr
 #' \cr
 #' By default, interactivity is on, but you can disable that by setting
-#' the \code{interactve} parameter to \code{FALSE}.
+#' the \code{interactive} parameter to \code{FALSE}.
 #'
 #' @param data data frame
 #' @param key bare or quoted name of the category column (defaults to \code{key})
