@@ -37,4 +37,3 @@ streamgraph(dat, "genre", "n", "year") \%>\%
   sg_axis_y(0)
 }#' @export
 }
-

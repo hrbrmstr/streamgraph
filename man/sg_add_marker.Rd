@@ -4,8 +4,9 @@
 \alias{sg_add_marker}
 \title{Add a vertical marker (with optional label) to streamgraph}
 \usage{
-sg_add_marker(sg, x, label = "", stroke_width = 0.5, stroke = "#7f7f7f",
-  space = 5, y = 0, color = "#7f7f7f", size = 12, anchor = "start")
+sg_add_marker(sg, x, label = "", stroke_width = 0.5,
+  stroke = "#7f7f7f", space = 5, y = 0, color = "#7f7f7f",
+  size = 12, anchor = "start")
 }
 \arguments{
 \item{sg}{streamgraph object}
@@ -32,4 +33,3 @@ sg_add_marker(sg, x, label = "", stroke_width = 0.5, stroke = "#7f7f7f",
 \description{
 This is useful for marking/labeling notable events along the streams.
 }
-

@@ -14,4 +14,3 @@ widgetThumbnail(p, thumbPath)
 \description{
 Make a thumbnail for an htmlwidget panel
 }
-

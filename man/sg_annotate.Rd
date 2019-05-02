@@ -24,4 +24,3 @@ Use this function to place text at any point on a streamgraph. This
 is especially useful for non-interactive streamgraphs (i.e. to label
 a particular stream).
 }
-

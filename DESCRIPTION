@@ -1,10 +1,10 @@
 Package: streamgraph
 Type: Package
 Title: streamgraph is an htmlwidget for building streamgraph visualizations
-Version: 0.8.1
-Date: 2015-12-24
-Author: Bob Rudis (@hrbrmstr)
-Maintainer: Bob Rudis <bob@rudis.net>
+Version: 0.9.0
+Date: 2019-05-02
+Author: Bob Rudis <bob@rud.is>
+Maintainer: Bob Rudis <bob@rud.is>
 Description: A streamgraph (or "stream graph") is a type of stacked area graph
     which is displaced around a central axis, resulting in a flowing,
     organic shape. Streamgraphs were developed by Lee Byron and popularized
@@ -30,4 +30,4 @@ Imports:
     tidyr,
     dplyr
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.1.1

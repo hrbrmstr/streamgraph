@@ -64,15 +64,20 @@ HTMLWidgets.widget({
     width = width - margin.left - margin.right;
     height = height - margin.top - margin.bottom;
 
-    var x ;
-    if (params.x_scale == "date") {
-      x = d3.time.scale().range([0, width]);
-    } else {
-      x = d3.scale.linear().range([0, width]) ;
-    }
+    var x  = (params.x_scale == "date") ? d3.time.scale().range([0, width]) : d3.scale.linear().range([0, width]);
+
     var y = d3.scale.linear().range([height-10, 0]);
-    var z = d3.scale.ordinal().range(colorrange)
-              .domain(d3.set(data.map(function(d) { return(d.key) })).values().sort());
+
+    var z = d3.scale.ordinal().range(colorrange);
+
+    if (params.sort) {
+      console.log("SORTING");
+      z = z.domain(d3.set(data.map(function(d) { return(d.key) })).values().sort());
+    } else {
+      console.log("NOT SORTING");
+      z = z.domain(d3.set(data.map(function(d) { return(d.key) })).values());
+    }
+
     var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
     var xAxis = d3.svg.axis().scale(x)
@@ -96,6 +101,7 @@ HTMLWidgets.widget({
 
     var stack = d3.layout.stack()
       .offset(params.offset)
+      .order(params.order)
       .values(function(d) { return d.values; })
       .x(function(d) { return d.date; })
       .y(function(d) { return d.value; });

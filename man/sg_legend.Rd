@@ -40,4 +40,3 @@ streamgraph(dat, "genre", "n", "year") \%>\%
   sg_legend(TRUE, "Genre: ")
 }
 }
-

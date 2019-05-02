@@ -34,4 +34,3 @@ streamgraph(dat, "genre", "n", "year") \%>\%
   sg_fill_brewer("PuOr")
 }
 }
-

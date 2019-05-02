@@ -20,4 +20,3 @@ THIS DOES NOT RETURN AN \code{htmlwidget}!! It returns a \code{shiny.tag}
 \description{
 Add a title to the streamgraph
 }
-

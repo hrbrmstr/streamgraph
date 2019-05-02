@@ -28,6 +28,11 @@
 #' @param right right margin (default should be fine, this allows for fine-tuning plot space)
 #' @param bottom bottom margin (default should be fine, this allows for fine-tuning plot space)
 #' @param left left margin (default should be fine, this allows for fine-tuning plot space)
+#' @param sort experimental
+#' @param complete experimental
+#' @param order streamgraph ribbon order. "`compat`" to match the orignial package behavior,
+#'              "`asis`" to use the input order, "`inside-out`" to sort by index of maximum value,
+#'              then use balanced weighting, or "`reverse`" to reverse the input layer order.
 #' @import htmlwidgets htmltools
 #' @importFrom tidyr expand
 #' @return streamgraph object
@@ -57,7 +62,14 @@ streamgraph <- function(data,
                         top=20,
                         right=40,
                         bottom=30,
-                        left=50) {
+                        left=50,
+                        sort=TRUE,
+                        complete=TRUE,
+                        order = c("compat", "asis", "inside-out", "reverse")) {
+
+  order <- match.arg(order, choices = c("compat", "asis", "inside-out", "reverse"))
+  if (order == "compat") order <- "none"
+  if (order == "asis") order <- "default"
 
   if (!(offset %in% c("silhouette", "wiggle", "expand", "zero"))) {
     warning("'offset' does not have a valid value, defaulting to 'silhouette'")
@@ -124,10 +136,12 @@ streamgraph <- function(data,
 
   # needs all combos, so we do the equiv of expand.grid, but w/dplyr & tidyr
 
-  data %>%
-    left_join(tidyr::expand(., key, date), ., by=c("key", "date")) %>%
-    mutate(value=ifelse(is.na(value), 0, value)) %>%
-    select(key, value, date) -> data
+  if (complete) {
+    data %>%
+      left_join(tidyr::expand(., key, date), ., by=c("key", "date")) %>%
+      mutate(value=ifelse(is.na(value), 0, value)) %>%
+      select(key, value, date) -> data
+  }
 
   if (scale=="date") {
 
@@ -162,7 +176,9 @@ streamgraph <- function(data,
     legend_label="",
     fill="brewer",
     label_col="black",
-    x_scale=scale
+    x_scale=scale,
+    sort=sort,
+    order=order
   )
 
   htmlwidgets::createWidget(

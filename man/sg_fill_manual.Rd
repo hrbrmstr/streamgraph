@@ -37,4 +37,3 @@ streamgraph(dat, "genre", "n", "year") \%>\%
   sg_fill_manual(c("black", "#ffa500", "blue", "white", "#00ff00", "red"))
 }
 }
-

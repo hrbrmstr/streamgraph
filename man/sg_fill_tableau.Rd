@@ -35,4 +35,3 @@ streamgraph(dat, "genre", "n", "year") \%>\%
   sg_fill_tableau("purplegray12")
 }
 }
-

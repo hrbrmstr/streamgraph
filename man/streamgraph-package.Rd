@@ -10,4 +10,3 @@ A package to make \href{http://www.leebyron.com/else/streamgraph/}{streamgraphs}
 \author{
 Bob Rudis (@hrbrmstr)
 }
-

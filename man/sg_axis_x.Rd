@@ -4,7 +4,8 @@
 \alias{sg_axis_x}
 \title{Modify streamgraph x axis formatting}
 \usage{
-sg_axis_x(sg, tick_interval = NULL, tick_units = NULL, tick_format = NULL)
+sg_axis_x(sg, tick_interval = NULL, tick_units = NULL,
+  tick_format = NULL)
 }
 \arguments{
 \item{sg}{streamgraph object}
@@ -41,4 +42,3 @@ streamgraph(dat, "genre", "n", "year") \%>\%
   sg_axis_x(20, "year", "\%Y")
 }
 }
-

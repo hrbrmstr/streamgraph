@@ -5,8 +5,10 @@
 \title{Create a new streamgraph}
 \usage{
 streamgraph(data, key, value, date, width = NULL, height = NULL,
-  offset = "silhouette", interpolate = "cardinal", interactive = TRUE,
-  scale = "date", top = 20, right = 40, bottom = 30, left = 50)
+  offset = "silhouette", interpolate = "cardinal",
+  interactive = TRUE, scale = "date", top = 20, right = 40,
+  bottom = 30, left = 50, sort = TRUE, complete = TRUE,
+  order = c("compat", "asis", "inside-out", "reverse"))
 }
 \arguments{
 \item{data}{data frame}
@@ -41,6 +43,14 @@ The default is probably fine fore most uses, but can be one of \code{cardinal} (
 \item{bottom}{bottom margin (default should be fine, this allows for fine-tuning plot space)}
 
 \item{left}{left margin (default should be fine, this allows for fine-tuning plot space)}
+
+\item{sort}{experimental}
+
+\item{complete}{experimental}
+
+\item{order}{streamgraph ribbon order. "`compat`" to match the orignial package behavior,
+"`asis`" to use the input order, "`inside-out`" to sort by index of maximum value,
+then use balanced weighting, or "`reverse`" to reverse the input layer order.}
 }
 \value{
 streamgraph object
@@ -53,7 +63,7 @@ category (by default, it looks for \code{key}) and its associated
 columns if they aren't named as such in your data.\cr
 \cr
 By default, interactivity is on, but you can disable that by setting
-the \code{interactve} parameter to \code{FALSE}.
+the \code{interactive} parameter to \code{FALSE}.
 }
 \examples{
 \dontrun{
@@ -70,4 +80,3 @@ select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) \%>\
 streamgraph(dat, "genre", "n", "year")
 }
 }
-
