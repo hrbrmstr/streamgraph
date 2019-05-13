@@ -2,6 +2,7 @@
 
 export("%>%")
 export(renderStreamgraph)
+export(sg_add_marker)
 export(sg_annotate)
 export(sg_axis_x)
 export(sg_axis_y)
