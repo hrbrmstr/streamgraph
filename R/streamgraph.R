@@ -13,6 +13,9 @@
 #' @param key bare or quoted name of the category column (defaults to \code{key})
 #' @param value bare or quoted name of the value column (defaults to \code{value})
 #' @param date bare or quoted name of the date column (defaults to \code{date})
+#' @param round Number of decimal places to round to in the tooltip (defaults to \code{10})
+#' @param xaxislab Text of x-axis label to be displayed
+#' @param yaxislab Test of y-axis label to be displayed
 #' @param width Width in pixels (optional, defaults to automatic sizing)
 #' @param height Height in pixels (optional, defaults to automatic sizing)
 #' @param offset see d3's \href{https://github.com/mbostock/d3/wiki/Stack-Layout#offset}{offset layout} for more details.
@@ -33,6 +36,7 @@
 #' @param order streamgraph ribbon order. "`compat`" to match the orignial package behavior,
 #'              "`asis`" to use the input order, "`inside-out`" to sort by index of maximum value,
 #'              then use balanced weighting, or "`reverse`" to reverse the input layer order.
+#' @param tooltipfs Tooltip font size
 #' @import htmlwidgets htmltools
 #' @importFrom tidyr expand
 #' @return streamgraph object
@@ -54,6 +58,8 @@ streamgraph <- function(data,
                         key,
                         value,
                         date,
+                        xaxislab = NULL,
+                        yaxislab = NULL,
                         width=NULL, height=NULL,
                         offset="silhouette",
                         interpolate="cardinal",
@@ -65,7 +71,9 @@ streamgraph <- function(data,
                         left=50,
                         sort=TRUE,
                         complete=TRUE,
-                        order = c("compat", "asis", "inside-out", "reverse")) {
+                        order = c("compat", "asis", "inside-out", "reverse"),
+                        tooltipfs = 20,
+                        round = 10) {
 
   order <- match.arg(order, choices = c("compat", "asis", "inside-out", "reverse"))
   if (order == "compat") order <- "none"
@@ -153,6 +161,11 @@ streamgraph <- function(data,
 
   }
 
+
+  # add px to tooltip font size
+  tooltipfs <- paste0(tooltipfs, "px")
+
+
   params = list(
     data=data,
     markers=NULL,
@@ -163,6 +176,10 @@ streamgraph <- function(data,
     palette="Spectral",
     text="black",
     tooltip="black",
+    tooltipfs=tooltipfs,
+    round = round,
+    xaxislab = xaxislab,
+    yaxislab = yaxislab,
     x_tick_interval=xti,
     x_tick_units=xtu,
     x_tick_format=xtf,
@@ -212,7 +229,24 @@ streamgraph_html <- function(id, style, class, width, height, ...) {
                 HTML(sprintf("<center><label style='padding-right:5px' for='%s-select'></label><select id='%s-select' style='visibility:hidden;'></select></center>", id, id))))
 }
 
+#' Add labels to the streamgraph
+#'
+#' @param sg streamgraph object
+#' @param header Title/header (Note, this is a different implementation of \code{sg_title()}, returning an sg object)
+#' @param as_html Whether to interpret \code{title}, \code{xaxis_label}, and \code{yaxis_label} arguments as HTML code. Default is FALSE
+#'
+#' @details
+#' If \code{as_html = TRUE}, the given header will be passed to htmltools::HTML and interpreted as HTML code.
+#' The default (\code{FALSE}) passes the header string as above but as bold, arial, paragraph text.
+#'
+#' @return sg object
+#' @export
+sg_header <- function(sg, header = NULL, as_html = FALSE){
 
+  if(!as_html) header <- sprintf('<b><p style="font-family:arial;">%s</p></b>', header)
 
+  if(!is.null(header))
+    htmlwidgets::prependContent(sg, htmltools::HTML(header))
+}
 
 
