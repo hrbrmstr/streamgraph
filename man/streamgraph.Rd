@@ -4,11 +4,27 @@
 \alias{streamgraph}
 \title{Create a new streamgraph}
 \usage{
-streamgraph(data, key, value, date, width = NULL, height = NULL,
-  offset = "silhouette", interpolate = "cardinal",
-  interactive = TRUE, scale = "date", top = 20, right = 40,
-  bottom = 30, left = 50, sort = TRUE, complete = TRUE,
-  order = c("compat", "asis", "inside-out", "reverse"))
+streamgraph(
+  data,
+  key,
+  value,
+  date,
+  xaxislab = NULL,
+  yaxislab = NULL,
+  width = NULL,
+  height = NULL,
+  offset = "silhouette",
+  interpolate = "cardinal",
+  interactive = TRUE,
+  scale = "date",
+  top = 20,
+  right = 40,
+  bottom = 30,
+  left = 50,
+  sort = TRUE,
+  complete = TRUE,
+  order = c("compat", "asis", "inside-out", "reverse"),
+)
 }
 \arguments{
 \item{data}{data frame}
@@ -18,6 +34,10 @@ streamgraph(data, key, value, date, width = NULL, height = NULL,
 \item{value}{bare or quoted name of the value column (defaults to \code{value})}
 
 \item{date}{bare or quoted name of the date column (defaults to \code{date})}
+
+\item{xaxislab}{Text of x-axis label to be displayed}
+
+\item{yaxislab}{Test of y-axis label to be displayed}
 
 \item{width}{Width in pixels (optional, defaults to automatic sizing)}
 

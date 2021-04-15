@@ -13,6 +13,8 @@
 #' @param key bare or quoted name of the category column (defaults to \code{key})
 #' @param value bare or quoted name of the value column (defaults to \code{value})
 #' @param date bare or quoted name of the date column (defaults to \code{date})
+#' @param xaxislab Text of x-axis label to be displayed
+#' @param yaxislab Test of y-axis label to be displayed
 #' @param width Width in pixels (optional, defaults to automatic sizing)
 #' @param height Height in pixels (optional, defaults to automatic sizing)
 #' @param offset see d3's \href{https://github.com/mbostock/d3/wiki/Stack-Layout#offset}{offset layout} for more details.
@@ -54,6 +56,8 @@ streamgraph <- function(data,
                         key,
                         value,
                         date,
+                        xaxislab = NULL,
+                        yaxislab = NULL,
                         width=NULL, height=NULL,
                         offset="silhouette",
                         interpolate="cardinal",
@@ -163,6 +167,8 @@ streamgraph <- function(data,
     palette="Spectral",
     text="black",
     tooltip="black",
+    xaxislab = xaxislab,
+    yaxislab = yaxislab,
     x_tick_interval=xti,
     x_tick_units=xtu,
     x_tick_format=xtf,
