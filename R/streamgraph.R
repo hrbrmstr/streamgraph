@@ -229,7 +229,24 @@ streamgraph_html <- function(id, style, class, width, height, ...) {
                 HTML(sprintf("<center><label style='padding-right:5px' for='%s-select'></label><select id='%s-select' style='visibility:hidden;'></select></center>", id, id))))
 }
 
+#' Add labels to the streamgraph
+#'
+#' @param sg streamgraph object
+#' @param header Title/header (Note, this is a different implementation of \code{sg_title()}, returning an sg object)
+#' @param as_html Whether to interpret \code{title}, \code{xaxis_label}, and \code{yaxis_label} arguments as HTML code. Default is FALSE
+#'
+#' @details
+#' If \code{as_html = TRUE}, the given header will be passed to htmltools::HTML and interpreted as HTML code.
+#' The default (\code{FALSE}) passes the header string as above but as bold, arial, paragraph text.
+#'
+#' @return sg object
+#' @export
+sg_header <- function(sg, header = NULL, as_html = FALSE){
 
+  if(!as_html) header <- sprintf('<b><p style="font-family:arial;">%s</p></b>', header)
 
+  if(!is.null(header))
+    htmlwidgets::prependContent(sg, htmltools::HTML(header))
+}
 
 
