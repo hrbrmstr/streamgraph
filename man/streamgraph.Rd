@@ -24,6 +24,7 @@ streamgraph(
   sort = TRUE,
   complete = TRUE,
   order = c("compat", "asis", "inside-out", "reverse"),
+  tooltipfs = 20,
 )
 }
 \arguments{
@@ -71,6 +72,8 @@ The default is probably fine fore most uses, but can be one of \code{cardinal} (
 \item{order}{streamgraph ribbon order. "`compat`" to match the orignial package behavior,
 "`asis`" to use the input order, "`inside-out`" to sort by index of maximum value,
 then use balanced weighting, or "`reverse`" to reverse the input layer order.}
+
+\item{tooltipfs}{Tooltip font size}
 }
 \value{
 streamgraph object

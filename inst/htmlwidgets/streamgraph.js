@@ -195,6 +195,7 @@ HTMLWidgets.widget({
         .attr("stroke-width", "0.5px");
 
         tooltip.text(dd.key + ": " + d.value).attr("fill", params.tooltip);
+          style("font-size", params.tooltipfs);
 
       })
 

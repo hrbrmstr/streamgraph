@@ -35,6 +35,7 @@
 #' @param order streamgraph ribbon order. "`compat`" to match the orignial package behavior,
 #'              "`asis`" to use the input order, "`inside-out`" to sort by index of maximum value,
 #'              then use balanced weighting, or "`reverse`" to reverse the input layer order.
+#' @param tooltipfs Tooltip font size
 #' @import htmlwidgets htmltools
 #' @importFrom tidyr expand
 #' @return streamgraph object
@@ -70,6 +71,7 @@ streamgraph <- function(data,
                         sort=TRUE,
                         complete=TRUE,
                         order = c("compat", "asis", "inside-out", "reverse")) {
+                        tooltipfs = 20,
 
   order <- match.arg(order, choices = c("compat", "asis", "inside-out", "reverse"))
   if (order == "compat") order <- "none"
@@ -157,6 +159,11 @@ streamgraph <- function(data,
 
   }
 
+
+  # add px to tooltip font size
+  tooltipfs <- paste0(tooltipfs, "px")
+
+
   params = list(
     data=data,
     markers=NULL,
@@ -167,6 +174,7 @@ streamgraph <- function(data,
     palette="Spectral",
     text="black",
     tooltip="black",
+    tooltipfs=tooltipfs,
     xaxislab = xaxislab,
     yaxislab = yaxislab,
     x_tick_interval=xti,
