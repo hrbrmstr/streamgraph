@@ -25,6 +25,7 @@ streamgraph(
   complete = TRUE,
   order = c("compat", "asis", "inside-out", "reverse"),
   tooltipfs = 20,
+  round = 10
 )
 }
 \arguments{
@@ -74,6 +75,8 @@ The default is probably fine fore most uses, but can be one of \code{cardinal} (
 then use balanced weighting, or "`reverse`" to reverse the input layer order.}
 
 \item{tooltipfs}{Tooltip font size}
+
+\item{round}{Number of decimal places to round to in the tooltip (defaults to \code{10})}
 }
 \value{
 streamgraph object

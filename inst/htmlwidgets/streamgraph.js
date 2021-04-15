@@ -194,7 +194,8 @@ HTMLWidgets.widget({
         .attr("stroke", strokecolor)
         .attr("stroke-width", "0.5px");
 
-        tooltip.text(dd.key + ": " + d.value).attr("fill", params.tooltip);
+        tooltip.text(dd.key + ": " + d3.round(d.value, params.round))
+          .attr("fill", params.tooltip).
           style("font-size", params.tooltipfs);
 
       })

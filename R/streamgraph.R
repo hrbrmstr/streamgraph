@@ -13,6 +13,7 @@
 #' @param key bare or quoted name of the category column (defaults to \code{key})
 #' @param value bare or quoted name of the value column (defaults to \code{value})
 #' @param date bare or quoted name of the date column (defaults to \code{date})
+#' @param round Number of decimal places to round to in the tooltip (defaults to \code{10})
 #' @param xaxislab Text of x-axis label to be displayed
 #' @param yaxislab Test of y-axis label to be displayed
 #' @param width Width in pixels (optional, defaults to automatic sizing)
@@ -70,8 +71,9 @@ streamgraph <- function(data,
                         left=50,
                         sort=TRUE,
                         complete=TRUE,
-                        order = c("compat", "asis", "inside-out", "reverse")) {
+                        order = c("compat", "asis", "inside-out", "reverse"),
                         tooltipfs = 20,
+                        round = 10) {
 
   order <- match.arg(order, choices = c("compat", "asis", "inside-out", "reverse"))
   if (order == "compat") order <- "none"
@@ -175,6 +177,7 @@ streamgraph <- function(data,
     text="black",
     tooltip="black",
     tooltipfs=tooltipfs,
+    round = round,
     xaxislab = xaxislab,
     yaxislab = yaxislab,
     x_tick_interval=xti,
